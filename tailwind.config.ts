@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
+        mulish: ["Mulish", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
