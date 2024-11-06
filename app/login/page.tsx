@@ -2,14 +2,12 @@ import purpleBg from "@/public/purple-bg.jpg";
 import { SignIn } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import LogoRender from "../_components/LogoRender/LogoRender";
-import SelectLanguage from "../_components/SelectLanguage/SelectLanguage";
 import { Button } from "../_components/ui/button";
 
 const Login = () => {
   return (
     <main className="grid h-full grid-cols-2">
       <section className="relative flex flex-col items-center justify-center px-12">
-        <SelectLanguage />
         <div className="flex w-[80%] flex-col justify-center">
           <LogoRender />
 
