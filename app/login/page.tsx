@@ -1,8 +1,8 @@
 import purpleBg from "@/public/purple-bg.jpg";
 import { SignIn } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import LogoRender from "../_components/LogoRender/LogoRender";
-import { Button } from "../_components/ui/button";
+import LogoRender from "../../components/LogoRender/LogoRender";
+import { Button } from "../../components/ui/button";
 
 const Login = () => {
   return (
