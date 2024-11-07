@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
     if (!name || !email || !password) {
       return NextResponse.json(
-        { error: "Name, email and password are required" },
+        { error: "Nome, email e senha é obrigatórios" },
         { status: 400 },
       );
     }
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     if (foundUser) {
       return NextResponse.json(
-        { error: "Email is already in use" },
+        { error: "Email já está em uso" },
         { status: 409 },
       );
     }
@@ -27,11 +27,11 @@ export async function POST(req: NextRequest) {
       data: { name, email, password },
     });
 
-    return NextResponse.json({ message: "User created" }, { status: 201 });
+    return NextResponse.json({ message: "Usuário criado" }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "Failed to create user" },
+      { error: "Falha ao criar um usuário" },
       { status: 500 },
     );
   }
