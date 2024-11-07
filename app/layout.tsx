@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Mulish, Raleway } from "next/font/google";
+import { Toaster } from "sonner";
+
 import "./globals.css";
 
 const raleway = Raleway({
@@ -29,6 +31,7 @@ export default function RootLayout({
         className={`${mulish.className} ${raleway.className} dark antialiased`}
       >
         {children}
+        <Toaster richColors closeButton />
       </body>
     </html>
   );

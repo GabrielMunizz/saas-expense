@@ -1,8 +1,7 @@
+import LoginRegisterModal from "@/components/LoginRegisterModal/LoginRegisterModal";
+import LogoRender from "@/components/LogoRender/LogoRender";
 import purpleBg from "@/public/purple-bg.jpg";
-import { SignIn } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import LogoRender from "../../components/LogoRender/LogoRender";
-import { Button } from "../../components/ui/button";
 
 const Login = () => {
   return (
@@ -16,10 +15,7 @@ const Login = () => {
             monitorar suas movimentações, e oferecer insights personalizados,
             facilitando o controle do seu orçamento.
           </p>
-          <Button variant="outline" className="w-full py-6 text-base">
-            <SignIn size={32} weight="bold" />
-            Faça login ou cadastre-se
-          </Button>
+          <LoginRegisterModal />
         </div>
       </section>
 

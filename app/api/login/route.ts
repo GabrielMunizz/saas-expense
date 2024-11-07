@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Wrong password!" }, { status: 401 });
     }
 
-    // adicionar logica para retornar token caso usuário faça login bem sucedido
+    return NextResponse.json({ message: "Login successful" }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Failed to login" }, { status: 500 });
