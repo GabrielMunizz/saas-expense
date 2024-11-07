@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       data: { name, email, password },
     });
 
-    return NextResponse.json(newUser, { status: 201 });
+    return NextResponse.json({ message: "User created" }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
