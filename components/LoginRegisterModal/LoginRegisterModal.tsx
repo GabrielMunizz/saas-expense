@@ -74,7 +74,6 @@ const LoginRegisterModal = () => {
     }
     form.reset();
     form.setValue("isLogin", true);
-    toast.success("Login feito com sucesso");
     redirect("/");
   };
 
