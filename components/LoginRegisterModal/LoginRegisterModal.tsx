@@ -20,6 +20,7 @@ import FormInput from "../Form/FormInput";
 import { Form } from "../ui/form";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -48,6 +49,7 @@ type FormData = z.infer<typeof formSchema>;
 const LoginRegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,6 +75,7 @@ const LoginRegisterModal = () => {
     form.reset();
     form.setValue("isLogin", true);
     toast.success("Login feito com sucesso");
+    redirect("/");
   };
 
   const handleRegister = async (
@@ -89,6 +92,7 @@ const LoginRegisterModal = () => {
     form.setValue("isLogin", true);
     toast.success("Cadastro feito com sucesso");
   };
+
   const handleSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
