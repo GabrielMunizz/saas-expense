@@ -10,7 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignIn } from "@phosphor-icons/react/dist/ssr";
+import { DialogClose } from "@radix-ui/react-dialog";
 import axios, { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -18,9 +21,6 @@ import { z } from "zod";
 import { Button } from "../Button";
 import FormInput from "../Form/FormInput";
 import { Form } from "../ui/form";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -49,7 +49,7 @@ type FormData = z.infer<typeof formSchema>;
 const LoginRegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,14 +67,14 @@ const LoginRegisterModal = () => {
     const result = await signIn("credentials", {
       email,
       password,
+      redirect: false,
     });
 
     if (result?.error) {
       return toast.error("Falha na autenticação");
     }
-    form.reset();
-    form.setValue("isLogin", true);
-    redirect("/");
+
+    router.push("/dashboard");
   };
 
   const handleRegister = async (

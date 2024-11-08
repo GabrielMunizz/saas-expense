@@ -1,7 +1,7 @@
-import { getServerSession, DefaultSession, NextAuthOptions } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { DefaultSession, getServerSession, NextAuthOptions } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -39,6 +39,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+
   providers: [
     Credentials({
       credentials: {
