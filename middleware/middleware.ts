@@ -7,6 +7,7 @@ async function authMiddleware(req: NextRequest) {
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
+
   return NextResponse.next();
 }
 

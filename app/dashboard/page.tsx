@@ -1,18 +1,22 @@
-import LogoRender from "@/components/LogoRender/LogoRender";
+"use client";
+
+import Header from "@/components/Header/Header";
+import Welcome from "@/components/Welcome/Welcome";
+import { NummusProvider } from "@/context/NummusContext";
 
 export default function Page() {
   return (
-    <main className="grid h-full grid-cols-2">
-      <section className="relative flex flex-col items-center justify-center px-12">
-        <div className="flex max-w-xl flex-col justify-center">
-          <LogoRender />
-          <p className="my-6 text-xl text-muted-foreground">
-            A Nummus é uma plataforma de gestão financeira que utiliza IA para
-            monitorar suas movimentações, e oferecer insights personalizados,
-            facilitando o controle do seu orçamento.
-          </p>
+    <NummusProvider>
+      <main className="grid h-full grid-cols-[1fr_2fr]">
+        <section className="relative flex flex-col items-start justify-start border-r-2 px-12">
+          <Header />
+          <Welcome />
+          <div className="min-h-96 w-full rounded-md border-2"></div>
+        </section>
+        <div>
+          <h2>Teste</h2>
         </div>
-      </section>
-    </main>
+      </main>
+    </NummusProvider>
   );
 }
