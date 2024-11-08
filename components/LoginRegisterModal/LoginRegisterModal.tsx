@@ -18,6 +18,8 @@ import { z } from "zod";
 import { Button } from "../Button";
 import FormInput from "../Form/FormInput";
 import { Form } from "../ui/form";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { signIn } from "next-auth/react";
 
 const formSchema = z
   .object({
@@ -44,7 +46,7 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 const LoginRegisterModal = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -59,25 +61,41 @@ const LoginRegisterModal = () => {
 
   const isLogin = form.watch("isLogin");
 
+  const handleLogin = async (email: string, password: string) => {
+    const result = await signIn("credentials", {
+      email,
+      password,
+    });
+
+    if (result?.error) {
+      return toast.error("Falha na autenticação");
+    }
+    form.reset();
+    form.setValue("isLogin", true);
+    toast.success("Login feito com sucesso");
+  };
+
+  const handleRegister = async (
+    name: string | undefined,
+    email: string,
+    password: string,
+  ) => {
+    await axios.post("/api/users", {
+      name,
+      email,
+      password,
+    });
+    form.reset();
+    form.setValue("isLogin", true);
+    toast.success("Cadastro feito com sucesso");
+  };
   const handleSubmit = async (data: FormData) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       if (data.isLogin) {
-        await axios.post("/api/login", {
-          email: data.email,
-          password: data.password,
-        });
-        setOpen(false);
-        return toast.success("Login feito com sucesso");
+        return await handleLogin(data.email, data.password);
       }
-      await axios.post("/api/users", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
-      form.reset();
-      toast.success("Cadastro feito com sucesso");
-      form.setValue("isLogin", true);
+      await handleRegister(data.name, data.email, data.password);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
@@ -86,7 +104,7 @@ const LoginRegisterModal = () => {
         toast.error(`Erro: ${error.response?.data.error}`);
       }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -97,6 +115,7 @@ const LoginRegisterModal = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      <DialogClose />
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full py-6 text-base">
           <SignIn size={32} weight="bold" />
@@ -155,7 +174,7 @@ const LoginRegisterModal = () => {
               </span>
             </p>
             <Button
-              isLoading={loading}
+              isLoading={isLoading}
               type="submit"
               className="h-full py-3 font-bold"
             >
