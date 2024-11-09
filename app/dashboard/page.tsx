@@ -2,6 +2,7 @@
 
 import CashFlow from "@/components/CashFlow/CashFlow";
 import Header from "@/components/Header/Header";
+import Transactions from "@/components/Transactions/Transactions";
 import Welcome from "@/components/Welcome/Welcome";
 import { NummusProvider } from "@/context/NummusContext";
 
@@ -15,7 +16,9 @@ export default function Page() {
           <CashFlow />
         </section>
         <div>
-          <h2>Teste</h2>
+          <div>
+            <Transactions />
+          </div>
         </div>
       </main>
     </NummusProvider>

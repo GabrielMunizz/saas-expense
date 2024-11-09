@@ -1,6 +1,39 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { NextApiRequest } from "next";
+
+export async function GET(req: NextApiRequest) {
+  const { email } = req.query;
+
+  if (!email) {
+    return NextResponse.json(
+      { error: "O email não foi fornecido" },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: email as string },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json(user, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Um erro inesperado ocorreu" },
+      { status: 500 },
+    );
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {

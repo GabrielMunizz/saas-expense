@@ -1,15 +1,36 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { NextApiRequest } from "next";
 
-export async function GET() {
+export async function GET(req: NextApiRequest) {
+  const { id } = req.query;
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "ID não foi fornecido" },
+      { status: 404 },
+    );
+  }
+
+  const userId = id as string;
+
   try {
-    const allTransactions = await prisma.transaction.findMany({});
+    const user = await prisma.transaction.findMany({
+      where: { userId },
+    });
 
-    return NextResponse.json({ data: allTransactions }, { status: 200 });
+    if (!user) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error(error);
-    NextResponse.json(
-      { error: "Um erro inesperado aconteceu" },
+    return NextResponse.json(
+      { error: "Um erro inesperado ocorreu" },
       { status: 500 },
     );
   }
