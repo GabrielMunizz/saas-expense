@@ -48,11 +48,13 @@ const CashFlow = () => {
           </TableRow>
         </TableBody>
         <TableFooter>
-          <TableCell className="text-lg">Balanço</TableCell>
-          <TableCell className="text-right text-lg"></TableCell>
-          <TableCell className={`text-right text-lg ${formatTotal(total)}`}>
-            R$ {total.toFixed(2)}
-          </TableCell>
+          <TableRow>
+            <TableCell className="text-lg">Balanço</TableCell>
+            <TableCell className="text-right text-lg"></TableCell>
+            <TableCell className={`text-right text-lg ${formatTotal(total)}`}>
+              R$ {total.toFixed(2)}
+            </TableCell>
+          </TableRow>
         </TableFooter>
       </Table>
     </div>
