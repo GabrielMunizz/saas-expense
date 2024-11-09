@@ -1,10 +1,10 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest) {
-  const { email } = req.query;
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const email = searchParams.get("email");
 
   if (!email) {
     return NextResponse.json(

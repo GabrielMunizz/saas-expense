@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest) {
-  const { id } = req.query;
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
 
   if (!id) {
     return NextResponse.json(
@@ -12,7 +12,7 @@ export async function GET(req: NextApiRequest) {
     );
   }
 
-  const userId = id as string;
+  const userId = id;
 
   try {
     const user = await prisma.transaction.findMany({
