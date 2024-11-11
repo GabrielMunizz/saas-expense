@@ -1,6 +1,7 @@
 import { authOptions } from "@/backend/authentication/auth";
-import CashFlow from "@/components/CashFlow/CashFlow";
 import Header from "@/components/Header/Header";
+import { NavBar } from "@/components/NavBar";
+import SignOutButton from "@/components/SignOutButton/SignOutButton";
 import Transactions from "@/components/Transactions/Transactions";
 import Welcome from "@/components/Welcome/Welcome";
 import { getServerSession } from "next-auth";
@@ -14,16 +15,15 @@ const Page = async () => {
   }
 
   return (
-    <main className="grid h-full grid-cols-[1fr_2fr]">
-      <section className="relative flex flex-col items-start justify-start border-r-2 px-12">
+    <main className="grid h-full grid-cols-[1fr_4fr]">
+      <section className="relative flex flex-col items-start justify-around border-r-2 px-12">
         <Header />
         <Welcome />
-        <CashFlow />
+        <NavBar />
+        <SignOutButton />
       </section>
       <div>
-        <div>
-          <Transactions />
-        </div>
+        <Transactions />
       </div>
     </main>
   );

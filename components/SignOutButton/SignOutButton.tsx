@@ -1,23 +1,23 @@
 "use client";
 
-import React from "react";
-import { Button } from "../Button";
+import { SignOut } from "@phosphor-icons/react/dist/ssr";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { Button } from "../Button";
 
 const SignOutButton = () => {
   const handleLogout = () => {
-    console.log("clicou");
     signOut();
     redirect("/login");
   };
   return (
     <Button
-      variant="link"
-      className="max-w-20 font-bold"
+      variant="secondary"
+      className="w-full font-bold"
       onClick={handleLogout}
     >
-      Logout
+      <SignOut size={30} />
+      Sair
     </Button>
   );
 };

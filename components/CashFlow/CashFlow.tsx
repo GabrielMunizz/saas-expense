@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import formatTotal from "@/utils/formatTotal";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,48 +11,47 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import formatTotal from "@/utils/formatTotal";
 
 const CashFlow = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [total, _setTotal] = useState(0);
   return (
     <div className="w-full rounded-md border-2">
-      <Table>
+      <Table className="text-sm">
         <TableHeader>
           <TableRow>
-            <TableHead className="text-lg">Tipo</TableHead>
-            <TableHead className="w-[200px] text-lg"></TableHead>
-            <TableHead className="text-right text-lg">Total</TableHead>
+            <TableHead>Tipo</TableHead>
+            <TableHead className="w-[200px]"></TableHead>
+            <TableHead className="text-right">Total</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="text-lg">Entradas</TableCell>
+            <TableCell>Entradas</TableCell>
             <TableCell />
-            <TableCell className="text-right text-lg">R$250.00</TableCell>
+            <TableCell className="text-right">R$250.00</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="text-lg">Investimentos</TableCell>
+            <TableCell>Investimentos</TableCell>
             <TableCell />
-            <TableCell className="text-right text-lg">R$250.00</TableCell>
+            <TableCell className="text-right">R$250.00</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="text-lg">Emprestimos</TableCell>
+            <TableCell>Emprestimos</TableCell>
             <TableCell />
-            <TableCell className="text-right text-lg">R$250.00</TableCell>
+            <TableCell className="text-right">R$250.00</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="text-lg">Despesas</TableCell>
+            <TableCell>Despesas</TableCell>
             <TableCell />
-            <TableCell className="text-right text-lg">R$250.00</TableCell>
+            <TableCell className="text-right">R$250.00</TableCell>
           </TableRow>
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell className="text-lg">Balanço</TableCell>
-            <TableCell className="text-right text-lg"></TableCell>
-            <TableCell className={`text-right text-lg ${formatTotal(total)}`}>
+            <TableCell>Balanço</TableCell>
+            <TableCell className="text-right"></TableCell>
+            <TableCell className={`text-right ${formatTotal(total)}`}>
               R$ {total.toFixed(2)}
             </TableCell>
           </TableRow>
