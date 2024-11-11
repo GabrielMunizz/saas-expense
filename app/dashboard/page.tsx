@@ -1,6 +1,6 @@
 import { authOptions } from "@/backend/authentication/auth";
 import Header from "@/components/Header/Header";
-import { NavBar } from "@/components/NavBar";
+import { NavBar } from "@/components/NavBar/NavBar";
 import SignOutButton from "@/components/SignOutButton/SignOutButton";
 import Transactions from "@/components/Transactions/Transactions";
 import Welcome from "@/components/Welcome/Welcome";
