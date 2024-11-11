@@ -5,7 +5,7 @@ export function NavBar() {
     <nav>
       <ul>
         <li>
-          <Link href="/">Dashboard</Link>
+          <Link href="/dashboard">Dashboard</Link>
         </li>
         <li>
           <Link href="/transactions">Transações</Link>
