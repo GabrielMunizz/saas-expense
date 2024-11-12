@@ -3,7 +3,7 @@
 import { handleFetchTransactions } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import {} from "next-auth";
-import { DataTable } from "../ui/data-table";
+import { DataTable, DateTableLoading } from "../ui/data-table";
 import { transactionColumns } from "./columns/columns";
 
 type TransactionProps = {
@@ -17,7 +17,7 @@ const Transactions = ({ userId }: TransactionProps) => {
   });
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return <DateTableLoading columns={transactionColumns} />;
   }
 
   return <DataTable columns={transactionColumns} data={transactions || []} />;

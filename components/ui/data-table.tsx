@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Skeleton } from "./skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,6 +74,43 @@ export function DataTable<TData, TValue>({
               </TableCell>
             </TableRow>
           )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
+type DateTableLoadingProps<TData, TValue> = {
+  columns: ColumnDef<TData, TValue>[];
+};
+export function DateTableLoading<TData, TValue>({
+  columns,
+}: DateTableLoadingProps<TData, TValue>) {
+  return (
+    <div className="w-full rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHead key={String(column.header)} className="text-center">
+                {String(column.header)}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <TableRow key={index}>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.header as string}
+                  className="text-center"
+                >
+                  <Skeleton className="h-5 w-full" />
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
