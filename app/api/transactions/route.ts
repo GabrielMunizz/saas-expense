@@ -35,3 +35,29 @@ export async function GET(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "ID não foi fornecido" },
+      { status: 404 },
+    );
+  }
+
+  try {
+    await prisma.transaction.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ status: 204 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Um erro inesperado ocorreu" },
+      { status: 500 },
+    );
+  }
+}

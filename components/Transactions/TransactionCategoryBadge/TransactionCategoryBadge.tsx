@@ -10,19 +10,31 @@ const TransactionCategoryBadge = ({
   transaction,
 }: TransactionCategoryTypeProps) => {
   return transaction.type === TransactionType.DEPOSIT ? (
-    <Badge variant="secondary" className="text-green-700">
+    <Badge
+      variant="secondary"
+      className="bg-green-900 bg-opacity-40 text-green-500"
+    >
       Depósito
     </Badge>
   ) : transaction.type === TransactionType.EXPENSE ? (
-    <Badge variant="secondary" className="text-red-700">
+    <Badge
+      variant="secondary"
+      className="bg-red-900 bg-opacity-40 text-red-500"
+    >
       Despesa
     </Badge>
   ) : transaction.type === TransactionType.INVESTMENT ? (
-    <Badge variant="secondary" className="text-gray-300">
+    <Badge
+      variant="secondary"
+      className="bg-yellow-300 bg-opacity-40 text-yellow-500"
+    >
       Investimento
     </Badge>
   ) : (
-    <Badge variant="secondary" className="text-orange-600">
+    <Badge
+      variant="secondary"
+      className="bg-orange-900 bg-opacity-40 text-orange-500"
+    >
       Empréstimo
     </Badge>
   );

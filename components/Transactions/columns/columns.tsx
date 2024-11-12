@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import formatDate from "@/utils/formatDate";
 import TransactionCategoryBadge from "../TransactionCategoryBadge/TransactionCategoryBadge";
 import TransactionPaymentMethod from "../TransactionPaymentMethod/TransactionPaymentMethod";
+import EditTransaction from "../EditTransaction/EditTransaction";
 
 const CATEGORY_LABELS = {
   HOUSING: "Casa",
@@ -61,5 +62,10 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "actions",
+    header: "Editar/Apagar",
+
+    cell: ({ row: { original: transaction } }) => (
+      <EditTransaction transaction={transaction} />
+    ),
   },
 ];

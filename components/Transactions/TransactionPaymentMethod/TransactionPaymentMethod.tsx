@@ -4,7 +4,7 @@ import {
   CreditCard,
   Money,
   ArrowsLeftRight,
-  Bank,
+  Files,
 } from "@phosphor-icons/react/dist/ssr";
 import { Transaction } from "@prisma/client";
 
@@ -50,7 +50,7 @@ const TransactionPaymentMethod = ({
         </>
       ) : transaction.paymentMethod === "BANK_SLIP" ? (
         <>
-          <Bank size={18} className="mr-2" />
+          <Files size={18} weight="duotone" className="mr-2" />
           <p>{PAYMENT_METHOD_LABELS[transaction.paymentMethod]}</p>
         </>
       ) : (
