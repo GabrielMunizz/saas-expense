@@ -1,17 +1,22 @@
-import { authOptions } from "@/backend/authentication/auth";
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
+"use client";
+
+import {} from "next-auth";
 import { DataTable } from "../ui/data-table";
 import { transactionColumns } from "./columns/columns";
+import { useQuery } from "@tanstack/react-query";
+import { handleFetchTransactions } from "@/services";
+import { Transaction } from "@prisma/client";
 
-const Transactions = async () => {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
-  const transactions = userId
-    ? await prisma.transaction.findMany({
-        where: { userId },
-      })
-    : [];
+type TransactionProps = {
+  userId: string;
+};
+
+const Transactions = ({ userId }: TransactionProps) => {
+  const transactionsQuery = useQuery({
+    queryKey: ["transactions"],
+    queryFn: () => handleFetchTransactions(userId),
+  });
+  const transactions = transactionsQuery.data as Transaction[];
 
   return <DataTable columns={transactionColumns} data={transactions} />;
 };

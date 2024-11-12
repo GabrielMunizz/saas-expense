@@ -15,18 +15,18 @@ export async function GET(req: Request) {
   const userId = id;
 
   try {
-    const user = await prisma.transaction.findMany({
+    const transactions = await prisma.transaction.findMany({
       where: { userId },
     });
 
-    if (!user) {
+    if (!transactions) {
       return NextResponse.json(
         { error: "Usuário não encontrado" },
         { status: 404 },
       );
     }
 
-    return NextResponse.json(user, { status: 200 });
+    return NextResponse.json(transactions, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
