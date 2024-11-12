@@ -1,12 +1,12 @@
-import axios from "axios";
 import { Transaction } from "@prisma/client";
+import axios from "axios";
 
-export async function handleFetchTransactions(id: string) {
+export async function handleFetchTransactions(
+  id: string,
+): Promise<Transaction[]> {
   const { data } = await axios.get(`/api/transactions?id=${id}`);
 
-  const transactions: Transaction[] = data;
-
-  return transactions;
+  return data;
 }
 
 export async function handleDeleteTransaction(id: string) {

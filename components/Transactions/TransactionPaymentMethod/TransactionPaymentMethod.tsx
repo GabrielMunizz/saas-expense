@@ -1,10 +1,9 @@
-import React from "react";
 import {
-  PixLogo,
-  CreditCard,
-  Money,
   ArrowsLeftRight,
+  CreditCard,
   Files,
+  Money,
+  PixLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import { Transaction } from "@prisma/client";
 
@@ -26,7 +25,7 @@ const TransactionPaymentMethod = ({
   transaction,
 }: TransactionPaymentMethodProps) => {
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-center justify-center">
       {transaction.paymentMethod === "PIX" ? (
         <>
           <PixLogo size={18} className="mr-2" />

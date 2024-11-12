@@ -1,12 +1,15 @@
-const formatDate = (date: Date) => {
-  const formatDate = Intl.DateTimeFormat("pt-BR", {
-    weekday: "long",
+const formatDate = (dateString: Date) => {
+  const date = new Date(dateString);
+
+  const formattedDate = Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
-    month: "long",
+    month: "short",
     year: "numeric",
   }).format(date);
+
   const weekDayUpperCase =
-    formatDate.charAt(0).toUpperCase() + formatDate.slice(1);
+    formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
   return weekDayUpperCase;
 };
 
