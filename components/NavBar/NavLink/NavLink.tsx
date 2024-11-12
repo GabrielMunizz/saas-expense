@@ -1,18 +1,28 @@
+"use client";
+
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
 
 type NavLinkProps = {
-  children: string;
+  children: React.ReactNode;
   route: string;
 };
 
 const NavLink = ({ children, route }: NavLinkProps) => {
+  const pathname = usePathname();
   return (
-    <li>
-      <Link className="hover:text-primary" href={route}>
-        {children}
-      </Link>
-    </li>
+    <Link
+      className={cn(
+        "my-2 flex items-center justify-start rounded-sm bg-gray-300 bg-opacity-10 py-2 pl-8 text-center font-semibold text-slate-400 hover:bg-purple-950 hover:bg-opacity-40 hover:text-primary",
+        {
+          "bg-purple-950 bg-opacity-40 text-primary": pathname === route,
+        },
+      )}
+      href={route}
+    >
+      {children}
+    </Link>
   );
 };
 

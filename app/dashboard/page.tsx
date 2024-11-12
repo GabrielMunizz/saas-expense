@@ -16,7 +16,7 @@ const Page = async () => {
 
   return (
     <main className="grid h-full grid-cols-[1fr_4fr]">
-      <section className="relative flex flex-col items-start justify-around border-r-2 px-12">
+      <section className="relative flex flex-col items-start justify-around border-r-2 px-8">
         <Header />
         <Welcome />
         <NavBar />

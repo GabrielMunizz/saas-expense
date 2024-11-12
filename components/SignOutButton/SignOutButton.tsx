@@ -13,10 +13,10 @@ const SignOutButton = () => {
   return (
     <Button
       variant="secondary"
-      className="w-full font-bold"
+      className="w-full justify-start pl-8 font-bold"
       onClick={handleLogout}
     >
-      <SignOut size={30} />
+      <SignOut size={20} weight="bold" className="mr-4" />
       Sair
     </Button>
   );
