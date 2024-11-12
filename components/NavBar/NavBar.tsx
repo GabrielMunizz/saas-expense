@@ -2,8 +2,8 @@ import {
   CashRegister,
   ChartLineUp,
   CurrencyCircleDollar,
+  UserCircle,
 } from "@phosphor-icons/react/dist/ssr";
-import { UserCircle } from "lucide-react";
 import NavLink from "./NavLink/NavLink";
 
 export function NavBar() {
@@ -23,7 +23,7 @@ export function NavBar() {
           Assinatura
         </NavLink>
         <NavLink route="/profile">
-          <UserCircle className="mr-4" size={20} />
+          <UserCircle className="mr-4" size={20} weight="fill" />
           Perfil
         </NavLink>
       </ul>

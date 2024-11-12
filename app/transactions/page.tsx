@@ -1,7 +1,9 @@
+import Transactions from "@/components/Transactions/Transactions";
+
 const Page = () => {
   return (
     <div className="w-full">
-      <h2>Dashboard</h2>
+      <Transactions />
     </div>
   );
 };
