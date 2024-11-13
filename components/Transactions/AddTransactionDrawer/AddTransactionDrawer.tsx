@@ -54,18 +54,22 @@ const AddTransactionDrawer = () => {
             <DrawerTitle>Adicione uma transação</DrawerTitle>
           </DrawerHeader>
           <div className="flex h-[65%] flex-col justify-between p-4 pb-0">
-            <Label htmlFor="name">Nome</Label>
+            <Label htmlFor="name" className="text-muted-foreground">
+              Nome
+            </Label>
             <Input id="name" className="w-[250px]" />
-            <Label>Tipo</Label>
+            <Label className="text-muted-foreground">Tipo</Label>
             <SelectInput selectLabel="Tipo" selectOptions={TYPE_OPTIONS} />
-            <Label>Categoria</Label>
+            <Label className="text-muted-foreground">Categoria</Label>
             <SelectInput selectLabel="Categoria" selectOptions={CATEGORIES} />
-            <Label>Método de pagamento</Label>
+            <Label className="text-muted-foreground">Método de pagamento</Label>
             <SelectInput
               selectLabel="Método de pagamento"
               selectOptions={PAYING_METHODS}
             />
-            <Label htmlFor="amount">R$</Label>
+            <Label htmlFor="amount" className="text-muted-foreground">
+              R$
+            </Label>
             <Input id="amount" className="mb-[10%] w-[250px]" />
           </div>
           <DrawerFooter>
