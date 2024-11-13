@@ -38,6 +38,8 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "@/app/_constants/_transactionConstants";
 import { DatePicker } from "@/components/ui/date-picker";
+import { addTransaction } from "@/backend/actions/addTransaction";
+import { formatAmount } from "@/utils/formatAmount";
 
 const formSchema = z.object({
   name: z.string().trim().min(3, {
@@ -58,17 +60,12 @@ const formSchema = z.object({
   date: z.date({
     required_error: "A data é obrigatória.",
   }),
-  userId: z.string().trim().min(1, {
-    message: "O userId é obrigatório.",
-  }),
 });
 
-type AddTransactionDrawerProps = {
-  userId: string;
-};
+type FormSchema = z.infer<typeof formSchema>;
 
-const AddTransactionDrawer = ({ userId }: AddTransactionDrawerProps) => {
-  const form = useForm<z.infer<typeof formSchema>>({
+const AddTransactionDrawer = () => {
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -77,11 +74,17 @@ const AddTransactionDrawer = ({ userId }: AddTransactionDrawerProps) => {
       paymentMethod: PaymentMethod.PIX,
       amount: "",
       date: new Date(),
-      userId,
     },
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (data: FormSchema) => {
+    const amount = formatAmount(data.amount);
+    try {
+      await addTransaction({ ...data, amount });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Drawer
@@ -159,12 +162,11 @@ const AddTransactionDrawer = ({ userId }: AddTransactionDrawerProps) => {
               />
 
               <DrawerFooter>
-                <Button className="w-[265px]">Adicionar</Button>
+                <Button>Adicionar</Button>
                 <DrawerClose asChild>
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-[265px]"
                     onClick={() => form.reset()}
                   >
                     Cancelar

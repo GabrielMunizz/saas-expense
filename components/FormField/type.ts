@@ -14,20 +14,12 @@ export type FormFieldProps = {
       date: Date;
       category: TransactionCategory;
       paymentMethod: PaymentMethod;
-      userId: string;
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
     undefined
   >;
-  name:
-    | "name"
-    | "type"
-    | "amount"
-    | "date"
-    | "category"
-    | "paymentMethod"
-    | "userId";
+  name: "name" | "type" | "amount" | "date" | "category" | "paymentMethod";
   label: string;
   placeHolder: string;
 };
