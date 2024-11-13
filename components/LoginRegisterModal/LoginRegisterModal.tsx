@@ -118,7 +118,7 @@ const LoginRegisterModal = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogClose />
+      <DialogClose onClick={handleToggleLogin} />
       <DialogTrigger asChild>
         <Button variant="outline" className="w-full py-6 text-base">
           <SignIn size={32} weight="bold" />

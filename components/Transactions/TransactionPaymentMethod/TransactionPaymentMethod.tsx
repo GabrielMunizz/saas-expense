@@ -1,4 +1,4 @@
-import { PAYMENT_METHOD_LABELS } from "@/app/_constants/_transactionContants";
+import { PAYMENT_METHOD_LABELS } from "@/app/_constants/_transactionConstants";
 import {
   ArrowsLeftRight,
   CreditCard,

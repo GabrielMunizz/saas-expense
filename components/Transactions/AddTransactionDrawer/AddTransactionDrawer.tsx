@@ -1,77 +1,96 @@
 "use client";
 
 import * as React from "react";
-import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { ArrowsDownUp } from "@phosphor-icons/react/dist/ssr";
-import { Label } from "@/components/ui/label";
-import SelectInput from "@/components/Select/SelectInput";
-import { NewTransactionType } from "@/app/api/_types/_transactions";
 
-const TYPE_OPTIONS = ["Depósito", "Despesa", "Investimento", "Empréstimo"];
-const CATEGORIES = [
-  "Casa",
-  "Educação",
-  "Entretenimento",
-  "Alimentação",
-  "Saúde",
-  "Salário",
-  "Assinatura",
-  "Transporte",
-  "Utilidades",
-  "Outros",
-];
-const PAYING_METHODS = [
-  "Pix",
-  "Cartão de crédito",
-  "Cartão de débito",
-  "Dinheiro",
-  "Transferência bancária",
-  "Boleto",
-  "Outro",
-];
+import { ArrowsDownUp } from "@phosphor-icons/react/dist/ssr";
+import {
+  PaymentMethod,
+  TransactionCategory,
+  TransactionType,
+} from "@prisma/client";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import FormFieldInput from "@/components/FormField/FormFieldInput/FormFieldInput";
+import FormFieldSelect from "@/components/FormField/FormFieldSelect/FormFieldSelect";
+import {
+  CATEGORY_OPTIONS,
+  PAYMENT_METHOD_OPTIONS,
+  TRANSACTION_TYPE_OPTIONS,
+} from "@/app/_constants/_transactionConstants";
+import { DatePicker } from "@/components/ui/date-picker";
+
+const formSchema = z.object({
+  name: z.string().trim().min(3, {
+    message: "O nome é obrigatório.",
+  }),
+  amount: z.string().trim().min(1, {
+    message: "O valor é obrigatório.",
+  }),
+  type: z.nativeEnum(TransactionType, {
+    required_error: "O tipo é obrigatório.",
+  }),
+  category: z.nativeEnum(TransactionCategory, {
+    required_error: "A categoria é obrigatória.",
+  }),
+  paymentMethod: z.nativeEnum(PaymentMethod, {
+    required_error: "O método de pagamento é obrigatório.",
+  }),
+  date: z.date({
+    required_error: "A data é obrigatória.",
+  }),
+  userId: z.string().trim().min(1, {
+    message: "O userId é obrigatório.",
+  }),
+});
 
 type AddTransactionDrawerProps = {
   userId: string;
 };
 
 const AddTransactionDrawer = ({ userId }: AddTransactionDrawerProps) => {
-  const newTransactionInitial: NewTransactionType = {
-    name: "",
-    type: "DEPOSIT",
-    amount: 0,
-    category: "SALARY",
-    paymentMethod: "PIX",
-    userId,
-  };
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      type: TransactionType.EXPENSE,
+      category: TransactionCategory.ENTERTAINMENT,
+      paymentMethod: PaymentMethod.PIX,
+      amount: "",
+      date: new Date(),
+      userId,
+    },
+  });
 
-  const [newTransaction, setNewTransaction] = useState<NewTransactionType>(
-    newTransactionInitial,
-  );
-
-  const handleChange = ({
-    target,
-  }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = target;
-    setNewTransaction({
-      ...newTransaction,
-      [name]: value,
-    });
-  };
+  const handleSubmit = () => {};
 
   return (
-    <Drawer>
+    <Drawer
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DrawerTrigger asChild>
         <Button>
           Adicionar transação
@@ -79,63 +98,81 @@ const AddTransactionDrawer = ({ userId }: AddTransactionDrawerProps) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto h-[75%] w-[60%] max-w-sm">
-          <DrawerHeader>
-            <DrawerTitle className="text-xl">
+        <div className="mx-auto h-full w-[60%] max-w-sm py-10">
+          <DrawerHeader className="px-0">
+            <DrawerTitle className="text-2xl">Adicionar transação</DrawerTitle>
+            <DrawerDescription className="mt-[-6px]">
               Insira as informações abaixo:
-            </DrawerTitle>
+            </DrawerDescription>
           </DrawerHeader>
-          <div className="flex h-[65%] flex-col justify-between p-4 pb-0">
-            <Label htmlFor="name" className="text-muted-foreground">
-              Nome
-            </Label>
-            <Input
-              id="name"
-              name="name"
-              value={newTransaction.name}
-              className="w-[265px]"
-              onChange={handleChange}
-            />
-            <Label className="text-muted-foreground">Tipo</Label>
-            <SelectInput
-              selectLabel="Tipo"
-              name="type"
-              selectOptions={TYPE_OPTIONS}
-              handleChange={handleChange}
-            />
-            <Label className="text-muted-foreground">Categoria</Label>
-            <SelectInput
-              selectLabel="Categoria"
-              name="category"
-              selectOptions={CATEGORIES}
-              handleChange={handleChange}
-            />
-            <Label className="text-muted-foreground">Método de pagamento</Label>
-            <SelectInput
-              selectLabel="Método de pagamento"
-              name="paymentMethod"
-              selectOptions={PAYING_METHODS}
-              handleChange={handleChange}
-            />
-            <Label htmlFor="amount" className="text-muted-foreground">
-              R$
-            </Label>
-            <Input
-              id="amount"
-              name="amount"
-              value={newTransaction.amount}
-              className="mb-[10%] w-[265px]"
-              onChange={handleChange}
-            />
-          </div>
-          <DrawerFooter>
-            <Button className="w-[265px]">Adicionar</Button>
-            <DrawerClose asChild>
-              <Button variant="outline" className="w-[265px]">
-                Cancelar
-              </Button>
-            </DrawerClose>
-          </DrawerFooter>
+
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-8"
+            >
+              <FormFieldInput
+                name="name"
+                placeHolder="Nome da transação"
+                form={form}
+                label="Nome"
+              />
+              <FormFieldInput
+                name="amount"
+                placeHolder="Valor da transação"
+                form={form}
+                label="Valor"
+              />
+
+              <FormFieldSelect
+                name="type"
+                placeHolder="Escolha o tipo"
+                form={form}
+                label="Tipo"
+                options={TRANSACTION_TYPE_OPTIONS}
+              />
+              <FormFieldSelect
+                name="category"
+                placeHolder="Escolha a categoria"
+                form={form}
+                label="Categoria"
+                options={CATEGORY_OPTIONS}
+              />
+              <FormFieldSelect
+                name="paymentMethod"
+                placeHolder="Escolha o método de pagamento"
+                form={form}
+                label="Método de pagamento"
+                options={PAYMENT_METHOD_OPTIONS}
+              />
+
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Data</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <DrawerFooter>
+                <Button className="w-[265px]">Adicionar</Button>
+                <DrawerClose asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-[265px]"
+                    onClick={() => form.reset()}
+                  >
+                    Cancelar
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </form>
+          </Form>
         </div>
       </DrawerContent>
     </Drawer>

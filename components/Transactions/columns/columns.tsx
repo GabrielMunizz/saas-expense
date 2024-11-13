@@ -6,7 +6,7 @@ import formatDate from "@/utils/formatDate";
 import TransactionCategoryBadge from "../TransactionCategoryBadge/TransactionCategoryBadge";
 import TransactionPaymentMethod from "../TransactionPaymentMethod/TransactionPaymentMethod";
 import EditTransaction from "../EditTransaction/EditTransaction";
-import { CATEGORY_LABELS } from "@/app/_constants/_transactionContants";
+import { CATEGORY_LABELS } from "@/app/_constants/_transactionConstants";
 
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {
