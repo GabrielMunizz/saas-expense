@@ -49,9 +49,11 @@ const AddTransactionDrawer = () => {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto h-[75%] w-full max-w-sm">
+        <div className="mx-auto h-[75%] w-[60%] max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Adicione uma transação</DrawerTitle>
+            <DrawerTitle className="text-center">
+              Adicione uma transação
+            </DrawerTitle>
           </DrawerHeader>
           <div className="flex h-[65%] flex-col justify-between p-4 pb-0">
             <Label htmlFor="name" className="text-muted-foreground">
@@ -73,9 +75,11 @@ const AddTransactionDrawer = () => {
             <Input id="amount" className="mb-[10%] w-[250px]" />
           </div>
           <DrawerFooter>
-            <Button>Adicionar</Button>
+            <Button className="w-[250px]">Adicionar</Button>
             <DrawerClose asChild>
-              <Button variant="outline">Cancelar</Button>
+              <Button variant="outline" className="w-[250px]">
+                Cancelar
+              </Button>
             </DrawerClose>
           </DrawerFooter>
         </div>
