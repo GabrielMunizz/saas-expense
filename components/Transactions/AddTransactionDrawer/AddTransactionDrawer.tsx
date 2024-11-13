@@ -1,7 +1,6 @@
 "use client";
 
-import * as React from "react";
-
+import SelectInput from "@/components/Select/SelectInput";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -13,9 +12,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
-import { ArrowsDownUp } from "@phosphor-icons/react/dist/ssr";
 import { Label } from "@/components/ui/label";
-import SelectInput from "@/components/Select/SelectInput";
+import { ArrowsDownUp } from "@phosphor-icons/react/dist/ssr";
 
 const TYPE_OPTIONS = ["Depósito", "Despesa", "Investimento", "Empréstimo"];
 const CATEGORIES = [
@@ -45,11 +43,11 @@ const AddTransactionDrawer = () => {
       <DrawerTrigger asChild>
         <Button>
           Adicionar transação
-          <ArrowsDownUp />
+          <ArrowsDownUp weight="bold" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto h-[75%] w-[60%] max-w-sm">
+        <div className="mx-auto h-[75%] w-full">
           <DrawerHeader>
             <DrawerTitle className="text-xl">
               Adicione uma transação
@@ -59,25 +57,34 @@ const AddTransactionDrawer = () => {
             <Label htmlFor="name" className="text-muted-foreground">
               Nome
             </Label>
-            <Input id="name" className="w-[250px]" />
+            <Input id="name" className="w-full" />
             <Label className="text-muted-foreground">Tipo</Label>
-            <SelectInput selectLabel="Tipo" selectOptions={TYPE_OPTIONS} />
+            <SelectInput
+              className="w-full"
+              selectLabel="Tipo"
+              selectOptions={TYPE_OPTIONS}
+            />
             <Label className="text-muted-foreground">Categoria</Label>
-            <SelectInput selectLabel="Categoria" selectOptions={CATEGORIES} />
+            <SelectInput
+              className="w-full"
+              selectLabel="Categoria"
+              selectOptions={CATEGORIES}
+            />
             <Label className="text-muted-foreground">Método de pagamento</Label>
             <SelectInput
+              className="w-full"
               selectLabel="Método de pagamento"
               selectOptions={PAYING_METHODS}
             />
             <Label htmlFor="amount" className="text-muted-foreground">
               R$
             </Label>
-            <Input id="amount" className="mb-[10%] w-[250px]" />
+            <Input id="amount" className="mb-[10%] w-full" />
           </div>
           <DrawerFooter>
-            <Button className="w-[250px]">Adicionar</Button>
+            <Button className="w-full">Adicionar</Button>
             <DrawerClose asChild>
-              <Button variant="outline" className="w-[250px]">
+              <Button variant="outline" className="w-full">
                 Cancelar
               </Button>
             </DrawerClose>

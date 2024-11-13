@@ -18,16 +18,16 @@ const Transactions = ({ userId }: TransactionProps) => {
     queryFn: () => handleFetchTransactions(userId),
   });
 
-  if (isLoading) {
-    return <DateTableLoading columns={transactionColumns} />;
-  }
-
   return (
     <div className="w-full p-6">
       <div className="mb-6 flex justify-end">
         <AddTransactionDrawer />
       </div>
-      <DataTable columns={transactionColumns} data={transactions || []} />
+      {isLoading ? (
+        <DateTableLoading columns={transactionColumns} />
+      ) : (
+        <DataTable columns={transactionColumns} data={transactions || []} />
+      )}
     </div>
   );
 };

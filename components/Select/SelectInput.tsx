@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -7,16 +6,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 type SelectInputProps = {
   selectOptions: string[];
   selectLabel: string;
+  className?: string;
 };
 
-const SelectInput = ({ selectLabel, selectOptions }: SelectInputProps) => {
+const SelectInput = ({
+  selectLabel,
+  selectOptions,
+  className,
+}: SelectInputProps) => {
   return (
     <Select>
-      <SelectTrigger className="w-[250px]">
+      <SelectTrigger className={cn("w-[250px]", className)}>
         <SelectValue placeholder={selectLabel} />
       </SelectTrigger>
       <SelectContent>
