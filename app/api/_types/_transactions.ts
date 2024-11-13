@@ -10,6 +10,6 @@ export type NewTransactionType = {
   amount: number;
   category: TransactionCategory;
   paymentMethod: PaymentMethod;
-  date: Date;
+  date?: Date;
   userId: string;
 };

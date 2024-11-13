@@ -25,7 +25,7 @@ const Transactions = ({ userId }: TransactionProps) => {
   return (
     <div className="w-full p-6">
       <div className="mb-6 flex justify-end">
-        <AddTransactionDrawer />
+        <AddTransactionDrawer userId={userId} />
       </div>
       <DataTable columns={transactionColumns} data={transactions || []} />
     </div>

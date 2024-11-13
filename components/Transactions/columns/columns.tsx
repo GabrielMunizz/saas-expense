@@ -6,19 +6,7 @@ import formatDate from "@/utils/formatDate";
 import TransactionCategoryBadge from "../TransactionCategoryBadge/TransactionCategoryBadge";
 import TransactionPaymentMethod from "../TransactionPaymentMethod/TransactionPaymentMethod";
 import EditTransaction from "../EditTransaction/EditTransaction";
-
-const CATEGORY_LABELS = {
-  HOUSING: "Casa",
-  EDUCATION: "Educação",
-  ENTERTAINMENT: "Entretenimento",
-  FOOD: "Alimentação",
-  HEALTH: "Saúde",
-  SALARY: "Salário",
-  SUBSCRIPTION: "Assinatura",
-  TRANSPORTATION: "Transporte",
-  UTILITY: "Utilidades",
-  OTHER: "Outros",
-};
+import { CATEGORY_LABELS } from "@/app/_constants/_transactionContants";
 
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {

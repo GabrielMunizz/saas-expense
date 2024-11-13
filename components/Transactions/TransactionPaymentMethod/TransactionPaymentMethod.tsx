@@ -1,3 +1,4 @@
+import { PAYMENT_METHOD_LABELS } from "@/app/_constants/_transactionContants";
 import {
   ArrowsLeftRight,
   CreditCard,
@@ -9,16 +10,6 @@ import { Transaction } from "@prisma/client";
 
 type TransactionPaymentMethodProps = {
   transaction: Transaction;
-};
-
-const PAYMENT_METHOD_LABELS = {
-  PIX: "Pix",
-  CREDIT_CARD: "Cartão de crédito",
-  DEBIT_CARD: "Cartão de débito",
-  CASH: "Dinheiro",
-  BANK_TRANSFER: "Transferência bancária",
-  BANK_SLIP: "Boleto",
-  OTHER: "Outro",
 };
 
 const TransactionPaymentMethod = ({

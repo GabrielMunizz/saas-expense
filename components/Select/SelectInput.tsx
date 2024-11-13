@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { ChangeEvent } from "react";
 import {
   Select,
   SelectContent,
@@ -11,13 +13,34 @@ import {
 type SelectInputProps = {
   selectOptions: string[];
   selectLabel: string;
+  name: string;
+  handleChange: ({
+    target,
+  }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 };
 
-const SelectInput = ({ selectLabel, selectOptions }: SelectInputProps) => {
+const SelectInput = ({
+  selectLabel,
+  selectOptions,
+  name,
+  handleChange,
+}: SelectInputProps) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    handleChange({
+      target: { name, value },
+    } as ChangeEvent<HTMLSelectElement>);
+  };
   return (
-    <Select>
-      <SelectTrigger className="w-[250px]">
-        <SelectValue placeholder={selectLabel} />
+    <Select
+      onValueChange={(value) =>
+        handleSelectChange({
+          target: { name, value },
+        } as ChangeEvent<HTMLSelectElement>)
+      }
+    >
+      <SelectTrigger className="w-[265px]">
+        <SelectValue placeholder={`Selecionar ${selectLabel.toLowerCase()}`} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
