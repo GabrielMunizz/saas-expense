@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Transaction, TransactionType } from "@prisma/client";
 import { NewTransactionType } from "../_types/_transactions";
 
 export async function GET(req: Request) {
