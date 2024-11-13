@@ -51,7 +51,7 @@ const AddTransactionDrawer = () => {
       <DrawerContent>
         <div className="mx-auto h-[75%] w-[60%] max-w-sm">
           <DrawerHeader>
-            <DrawerTitle className="text-center">
+            <DrawerTitle className="text-xl">
               Adicione uma transação
             </DrawerTitle>
           </DrawerHeader>
