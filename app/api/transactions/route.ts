@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { NewTransactionType } from "../_types/_transactions";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -38,14 +37,8 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: NextRequest) {
-  const {
-    name,
-    type,
-    amount,
-    category,
-    paymentMethod,
-    userId,
-  }: NewTransactionType = await req.json();
+  const { name, type, amount, category, paymentMethod, userId } =
+    await req.json();
 
   if (!userId) {
     return NextResponse.json(
