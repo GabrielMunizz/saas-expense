@@ -97,7 +97,7 @@ const AddTransactionDrawer = () => {
       <DrawerTrigger asChild>
         <Button>
           Adicionar transação
-          <ArrowsDownUp />
+          <ArrowsDownUp weight="bold" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>

@@ -99,7 +99,7 @@ export function DateTableLoading<TData, TValue>({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 7 }).map((_, index) => (
             <TableRow key={index}>
               {columns.map((column) => (
                 <TableCell
