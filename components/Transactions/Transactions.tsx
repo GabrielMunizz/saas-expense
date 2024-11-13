@@ -6,6 +6,8 @@ import {} from "next-auth";
 import { DataTable, DateTableLoading } from "../ui/data-table";
 import { transactionColumns } from "./columns/columns";
 
+import AddTransactionDrawer from "./AddTransactionDrawer/AddTransactionDrawer";
+
 type TransactionProps = {
   userId: string;
 };
@@ -20,7 +22,14 @@ const Transactions = ({ userId }: TransactionProps) => {
     return <DateTableLoading columns={transactionColumns} />;
   }
 
-  return <DataTable columns={transactionColumns} data={transactions || []} />;
+  return (
+    <div className="w-full p-6">
+      <div className="mb-6 flex justify-end">
+        <AddTransactionDrawer />
+      </div>
+      <DataTable columns={transactionColumns} data={transactions || []} />
+    </div>
+  );
 };
 
 export default Transactions;
