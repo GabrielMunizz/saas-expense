@@ -96,7 +96,7 @@ const TransactionDrawer = ({
     setIsLoading(true);
     const amount = formatAmount(data.amount);
     try {
-      await addTransaction({ ...data, amount });
+      await addTransaction({ ...data, amount, id: transaction?.id });
       queryClient.invalidateQueries({
         queryKey: ["transactions"],
       });

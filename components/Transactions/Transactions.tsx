@@ -6,7 +6,7 @@ import {} from "next-auth";
 import { DataTable, DateTableLoading } from "../ui/data-table";
 import { transactionColumns } from "./columns/columns";
 
-import AddTransactionDrawer from "./AddTransactionDrawer/AddTransactionDrawer";
+import AddTransaction from "./AddTransaction/AddTransaction";
 
 type TransactionProps = {
   userId: string;
@@ -21,7 +21,7 @@ const Transactions = ({ userId }: TransactionProps) => {
   return (
     <div className="w-full p-6">
       <div className="mb-6 flex justify-end">
-        <AddTransactionDrawer />
+        <AddTransaction />
       </div>
       {isLoading ? (
         <DateTableLoading columns={transactionColumns} />
