@@ -111,7 +111,11 @@ const TransactionDrawer = ({
       queryClient.invalidateQueries({
         queryKey: ["transactions"],
       });
-      toast.success("Transação adiciona com sucesso!");
+      toast.success(
+        isEdit
+          ? "Transação adiciona com sucesso!"
+          : "Transação editada com sucesso!",
+      );
       setIsOpen(false);
       form.reset();
     } catch (error) {
