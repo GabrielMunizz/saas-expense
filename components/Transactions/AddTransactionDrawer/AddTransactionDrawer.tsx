@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/Button";
 import {
   Drawer,
   DrawerClose,
@@ -38,8 +38,9 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "@/app/_constants/_transactionConstants";
 import { DatePicker } from "@/components/ui/date-picker";
-import { addTransaction } from "@/backend/actions/addTransaction";
+import { addTransaction } from "@/backend/actions/add-transaction";
 import { formatAmount } from "@/utils/formatAmount";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().trim().min(3, {
@@ -65,6 +66,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 const AddTransactionDrawer = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -78,11 +80,14 @@ const AddTransactionDrawer = () => {
   });
 
   const handleSubmit = async (data: FormSchema) => {
+    setIsLoading(true);
     const amount = formatAmount(data.amount);
     try {
       await addTransaction({ ...data, amount });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +100,7 @@ const AddTransactionDrawer = () => {
       }}
     >
       <DrawerTrigger asChild>
-        <Button>
+        <Button className="w-[250px]">
           Adicionar transação
           <ArrowsDownUp weight="bold" />
         </Button>
@@ -162,7 +167,7 @@ const AddTransactionDrawer = () => {
               />
 
               <DrawerFooter>
-                <Button>Adicionar</Button>
+                <Button isLoading={isLoading}>Adicionar</Button>
                 <DrawerClose asChild>
                   <Button
                     type="button"

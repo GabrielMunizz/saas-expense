@@ -9,6 +9,7 @@ import {
   TransactionType,
 } from "@prisma/client";
 import { authOptions } from "@/backend/authentication/auth";
+import { revalidatePath } from "next/cache";
 
 type TransactionParams = {
   name: string;
@@ -33,4 +34,6 @@ export const addTransaction = async (params: TransactionParams) => {
   await prisma.transaction.create({
     data: { ...params, userId },
   });
+
+  revalidatePath("/transactions");
 };
