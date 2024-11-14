@@ -5,9 +5,9 @@ import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react/dist/ssr";
 import { Transaction } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
 
+import { useState } from "react";
 import { toast } from "sonner";
 import TransactionDrawer from "../TransactionDrawer/TransactionDrawer";
-import { useState } from "react";
 
 type EditTransactionProps = {
   transaction: Transaction;
@@ -37,6 +37,7 @@ const EditTransaction = ({ transaction }: EditTransactionProps) => {
         transaction={transaction}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
+        isEdit={true}
       >
         <button className="mr-2">
           <PencilSimpleLine
