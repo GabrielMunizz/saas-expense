@@ -1,8 +1,8 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { Button } from "@/components/Button";
@@ -18,11 +18,14 @@ import {
 } from "@/components/ui/drawer";
 
 import {
-  PaymentMethod,
-  Transaction,
-  TransactionCategory,
-  TransactionType,
-} from "@prisma/client";
+  CATEGORY_OPTIONS,
+  PAYMENT_METHOD_OPTIONS,
+  TRANSACTION_TYPE_OPTIONS,
+} from "@/app/_constants/_transactionConstants";
+import { addTransaction } from "@/backend/actions/add-transaction";
+import FormFieldInput from "@/components/FormField/FormFieldInput/FormFieldInput";
+import FormFieldSelect from "@/components/FormField/FormFieldSelect/FormFieldSelect";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Form,
   FormField,
@@ -30,18 +33,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import FormFieldInput from "@/components/FormField/FormFieldInput/FormFieldInput";
-import FormFieldSelect from "@/components/FormField/FormFieldSelect/FormFieldSelect";
-import {
-  CATEGORY_OPTIONS,
-  PAYMENT_METHOD_OPTIONS,
-  TRANSACTION_TYPE_OPTIONS,
-} from "@/app/_constants/_transactionConstants";
-import { DatePicker } from "@/components/ui/date-picker";
-import { addTransaction } from "@/backend/actions/add-transaction";
 import { formatAmount } from "@/utils/formatAmount";
-import { useState } from "react";
+import {
+  PaymentMethod,
+  Transaction,
+  TransactionCategory,
+  TransactionType,
+} from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -72,6 +72,7 @@ type TransactionDrawerProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   transaction?: Transaction;
   children: React.ReactNode;
+  isEdit?: boolean;
 };
 
 const TransactionDrawer = ({
@@ -79,6 +80,7 @@ const TransactionDrawer = ({
   isOpen,
   transaction,
   children,
+  isEdit,
 }: TransactionDrawerProps) => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
@@ -133,7 +135,9 @@ const TransactionDrawer = ({
       <DrawerContent>
         <div className="mx-auto h-full w-[60%] max-w-sm py-10">
           <DrawerHeader className="px-0">
-            <DrawerTitle className="text-2xl">Adicionar transação</DrawerTitle>
+            <DrawerTitle className="text-2xl">
+              {isEdit ? "Editar" : "Adicionar"} transação
+            </DrawerTitle>
             <DrawerDescription className="mt-[-6px]">
               Insira as informações abaixo:
             </DrawerDescription>
@@ -192,7 +196,9 @@ const TransactionDrawer = ({
               />
 
               <DrawerFooter>
-                <Button isLoading={isLoading}>Adicionar</Button>
+                <Button isLoading={isLoading}>
+                  {isEdit ? "Editar" : "Adicionar"}
+                </Button>
                 <DrawerClose asChild>
                   <Button
                     type="button"
