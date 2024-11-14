@@ -1,7 +1,6 @@
 "use client";
 
 import deleteTransaction from "@/backend/actions/delete-transaction";
-import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react/dist/ssr";
 import { Transaction } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,29 +33,19 @@ const EditTransaction = ({ transaction }: EditTransactionProps) => {
   };
   return (
     <div className="flex flex-row items-center justify-center">
-      <Drawer
-        onOpenChange={(open) => {
-          if (!open) {
-            setIsOpen(open);
-          }
-        }}
-        open={isOpen}
+      <TransactionDrawer
+        transaction={transaction}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
       >
-        <DrawerTrigger asChild>
-          <button className="mr-2">
-            <PencilSimpleLine
-              size={20}
-              className="delay-75 hover:text-purple-600"
-              onClick={() => setIsOpen((prev) => !prev)}
-            />
-          </button>
-        </DrawerTrigger>
-        <TransactionDrawer
-          transaction={transaction}
-          setIsOpen={setIsOpen}
-          isOpen={isOpen}
-        />
-      </Drawer>
+        <button className="mr-2">
+          <PencilSimpleLine
+            size={20}
+            className="delay-75 hover:text-purple-600"
+            onClick={() => setIsOpen((prev) => !prev)}
+          />
+        </button>
+      </TransactionDrawer>
 
       <button onClick={() => handleDelete(transaction.id)}>
         <TrashSimple size={20} className="delay-75 hover:text-purple-600" />
