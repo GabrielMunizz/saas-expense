@@ -86,7 +86,11 @@ const TransactionDrawer = ({
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: transaction
-      ? { ...transaction, amount: transaction?.amount.toString() }
+      ? {
+          ...transaction,
+          amount: transaction?.amount.toString(),
+          date: new Date(transaction.date),
+        }
       : {
           name: "",
           type: TransactionType.EXPENSE,
