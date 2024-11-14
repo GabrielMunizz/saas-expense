@@ -41,6 +41,8 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { addTransaction } from "@/backend/actions/add-transaction";
 import { formatAmount } from "@/utils/formatAmount";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   name: z.string().trim().min(3, {
@@ -66,7 +68,9 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 const AddTransactionDrawer = () => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,8 +88,15 @@ const AddTransactionDrawer = () => {
     const amount = formatAmount(data.amount);
     try {
       await addTransaction({ ...data, amount });
+      queryClient.invalidateQueries({
+        queryKey: ["transactions"],
+      });
+      toast.success("Transação adiciona com sucesso!");
+      setIsOpen(false);
+      form.reset();
     } catch (error) {
       console.error(error);
+      toast.error("Oops! Um erro ocorreu. Tente novamente!");
     } finally {
       setIsLoading(false);
     }
@@ -96,11 +107,16 @@ const AddTransactionDrawer = () => {
       onOpenChange={(open) => {
         if (!open) {
           form.reset();
+          setIsOpen(false);
         }
       }}
+      open={isOpen}
     >
       <DrawerTrigger asChild>
-        <Button className="w-[250px]">
+        <Button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="w-[250px]"
+        >
           Adicionar transação
           <ArrowsDownUp weight="bold" />
         </Button>
