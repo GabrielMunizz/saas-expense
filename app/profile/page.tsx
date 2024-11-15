@@ -10,7 +10,6 @@ import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog"
 const Profile = async () => {
   const { name, email, createdAt, profileImage, nickname, subscription } =
     await getUser();
-  console.log("SUB -->", profileImage);
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -18,21 +17,24 @@ const Profile = async () => {
         <div className="h-[6rem] w-full rounded-t-md bg-gradient-to-r from-purple-800/15 via-purple-900/80 to-purple-800/15" />
         <section className="flex w-full flex-col items-center justify-start rounded-b-md bg-[#0d091f]">
           <section className="flex w-[95%] items-center justify-between">
-            <div>
+            <div className="m-4">
               <Image
                 src={
                   profileImage === "" ? profileIcon : (profileImage as string)
                 }
                 alt="profile photo"
-                className="object-contain"
+                className="rounded-full object-contain"
                 width={200}
+                height={100}
               />
             </div>
             <div className="flex w-full items-center justify-between">
               <div>
                 <div className="flex items-center justify-start">
                   <h2 className="mb-[4px] mr-2 text-2xl font-bold">{name}</h2>
-                  <CrownSimple color="orange" weight="fill" size={18} />
+                  {subscription === "Premium" && (
+                    <CrownSimple color="orange" weight="fill" size={18} />
+                  )}
                 </div>
                 <h2 className="text-lg text-muted-foreground">{email}</h2>
               </div>
