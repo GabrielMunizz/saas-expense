@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/Select/SelectInput";
 import formatDate from "@/utils/formatDate";
+import { Crown } from "@phosphor-icons/react/dist/ssr/Crown";
 
 const genderOptions = ["Masculino", "Feminino"];
 
@@ -29,7 +30,10 @@ const Profile = async () => {
             </div>
             <div className="flex w-full items-center justify-between">
               <div>
-                <h2 className="mb-[4px] text-2xl font-bold">{name}</h2>
+                <div className="flex items-center justify-start">
+                  <h2 className="mb-[4px] mr-2 text-2xl font-bold">{name}</h2>
+                  <Crown color="orange" weight="fill" size={18} />
+                </div>
                 <h2 className="text-lg text-muted-foreground">{email}</h2>
               </div>
               <div className="mr-8">
