@@ -58,6 +58,12 @@ const Profile = async () => {
                 readonly
                 className="w-[250px] border-0 outline-none focus-visible:ring-0"
               />
+              <TextInput
+                label="Plano:"
+                defaultValue="Premium"
+                readonly
+                className="w-[250px] border-0 outline-none focus-visible:ring-0"
+              />
             </div>
           </section>
         </section>
