@@ -22,7 +22,10 @@ const TextInput = ({
       <Input
         defaultValue={defaultValue}
         readOnly={readonly ?? false}
-        className={cn("mb-6 border-none", className)}
+        className={cn(
+          `mb-6 border-none ${readonly ? "outline-none focus-visible:ring-0" : ""}`,
+          className,
+        )}
       />
     </Label>
   );

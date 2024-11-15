@@ -39,9 +39,9 @@ const Profile = async () => {
           </section>
           <section className="grid w-[95%] grid-cols-2 place-content-between px-6 pb-4">
             <div>
-              <TextInput defaultValue={name} label="Nome completo:" />
-              <TextInput defaultValue={email} label="E-mail:" />
-              <TextInput label="Nickname:" />
+              <TextInput defaultValue={name} readonly label="Nome completo:" />
+              <TextInput defaultValue={email} readonly label="E-mail:" />
+              <TextInput readonly label="Nickname:" />
             </div>
             <div className="ml-16">
               <Label className="text-lg">
