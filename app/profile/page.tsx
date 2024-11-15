@@ -2,14 +2,10 @@ import React from "react";
 import Image from "next/image";
 import profileIcon from "@/public/profileIcon.png";
 import { getUser } from "@/backend/actions/get-user";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import TextInput from "@/components/TextInput/TextInput";
-import SelectInput from "@/components/Select/SelectInput";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
-
-const genderOptions = ["Masculino", "Feminino"];
+import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 
 const Profile = async () => {
   const { name, email, createdAt } = await getUser();
@@ -37,7 +33,7 @@ const Profile = async () => {
                 <h2 className="text-lg text-muted-foreground">{email}</h2>
               </div>
               <div className="mr-8">
-                <Button className="w-[100px]">Editar</Button>
+                <EditProfileDialog />
               </div>
             </div>
           </section>
@@ -48,23 +44,15 @@ const Profile = async () => {
               <TextInput readonly label="Nickname:" />
             </div>
             <div className="ml-16">
-              <Label className="text-lg">
-                Gênero
-                <SelectInput
-                  selectLabel="Selecione"
-                  selectOptions={genderOptions}
-                  className="mb-6 border-none"
-                />
-              </Label>
               <TextInput
-                label="Membro desde:"
-                defaultValue={formatDate(createdAt)}
+                label="Plano:"
+                defaultValue="Premium"
                 readonly
                 className="w-[250px] border-0 outline-none focus-visible:ring-0"
               />
               <TextInput
-                label="Plano:"
-                defaultValue="Premium"
+                label="Membro desde:"
+                defaultValue={formatDate(createdAt)}
                 readonly
                 className="w-[250px] border-0 outline-none focus-visible:ring-0"
               />

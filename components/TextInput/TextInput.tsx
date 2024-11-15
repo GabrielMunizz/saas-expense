@@ -23,7 +23,7 @@ const TextInput = ({
         defaultValue={defaultValue}
         readOnly={readonly ?? false}
         className={cn(
-          `mb-6 border-none ${readonly ? "outline-none focus-visible:ring-0" : ""}`,
+          `mb-6 border-none ${readonly ? "cursor-default outline-none focus-visible:ring-0" : ""}`,
           className,
         )}
       />

@@ -20,6 +20,7 @@ export type FormFieldProps = {
     undefined
   >;
   name: "name" | "type" | "amount" | "date" | "category" | "paymentMethod";
+
   label: string;
   placeHolder: string;
 };
