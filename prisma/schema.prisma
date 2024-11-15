@@ -36,7 +36,7 @@ model User {
   updatedAt    DateTime      @updatedAt @map("updated_at")
   transactions Transaction[]
   nickname     String?       @default("")
-  profileImage String?       @default("")
+  profileImage String?       
   subscription String        @default("Free")
 }
 
