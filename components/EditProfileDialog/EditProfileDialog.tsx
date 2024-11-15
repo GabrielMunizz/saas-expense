@@ -20,7 +20,7 @@ const editProfileSchema = z.object({
   name: z.string().optional(),
   email: z.string().email({ message: "Email inválido!" }),
   nickname: z.string().optional(),
-  profileImage: z.string().optional(),
+  profileImage: z.string().trim().min(1).optional(),
 });
 
 type FormData = z.infer<typeof editProfileSchema>;
@@ -76,8 +76,14 @@ const EditProfileDialog = () => {
               label="Nickname"
               placeholder="Digite seu apelido"
             />
+            <FormInput
+              form={form}
+              name="profileImage"
+              label="Imagem de perfil"
+              placeholder="URL da imagem"
+            />
 
-            <Button type="submit" className="h-full py-3 font-bold">
+            <Button type="submit" className="mt-8 h-full py-3 font-bold">
               Confirmar
             </Button>
           </form>

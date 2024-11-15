@@ -20,7 +20,9 @@ const Profile = async () => {
           <section className="flex w-[95%] items-center justify-between">
             <div>
               <Image
-                src={profileImage ?? profileIcon}
+                src={
+                  profileImage === "" ? profileIcon : (profileImage as string)
+                }
                 alt="profile photo"
                 className="object-contain"
                 width={200}
