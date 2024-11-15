@@ -8,7 +8,7 @@ import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 
 const Profile = async () => {
-  const { name, email, createdAt } = await getUser();
+  const { name, email, createdAt, profileImage, nickname } = await getUser();
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -18,7 +18,7 @@ const Profile = async () => {
           <section className="flex w-[95%] items-center justify-between">
             <div>
               <Image
-                src={profileIcon}
+                src={profileImage ?? profileIcon}
                 alt="profile photo"
                 className="object-contain"
                 width={200}
@@ -41,7 +41,11 @@ const Profile = async () => {
             <div>
               <TextInput defaultValue={name} readonly label="Nome completo:" />
               <TextInput defaultValue={email} readonly label="E-mail:" />
-              <TextInput readonly label="Nickname:" />
+              <TextInput
+                readonly
+                defaultValue={nickname ?? ""}
+                label="Nickname:"
+              />
             </div>
             <div className="ml-16">
               <TextInput

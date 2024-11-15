@@ -21,7 +21,7 @@ export const getUser = async () => {
     throw new Error("User not found");
   }
 
-  const { name, email, createdAt } = user;
+  const { name, email, createdAt, profileImage, nickname } = user;
 
-  return { name, email, createdAt };
+  return { name, email, createdAt, profileImage, nickname };
 };
