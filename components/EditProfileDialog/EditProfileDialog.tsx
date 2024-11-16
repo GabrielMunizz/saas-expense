@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import editUserProfile from "@/backend/actions/edit-user";
+import uploadImage from "@/backend/actions/uploadImage";
 
 const editProfileSchema = z.object({
   name: z.string().min(2).optional(),
@@ -31,14 +32,12 @@ type EditProfileDialogProps = {
   name: string;
   email: string;
   nickname: string | null;
-  profileImage: string | null;
 };
 
 const EditProfileDialog = ({
   name,
   email,
   nickname,
-  profileImage,
 }: EditProfileDialogProps) => {
   const [open, setOpen] = useState(false);
 
@@ -48,7 +47,7 @@ const EditProfileDialog = ({
       name,
       email,
       nickname: nickname ?? "",
-      profileImage: profileImage ?? "",
+      profileImage: "",
     },
   });
 
@@ -80,6 +79,7 @@ const EditProfileDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="flex flex-col gap-3"
+            action={uploadImage}
           >
             <FormInput
               form={form}
