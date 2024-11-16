@@ -6,10 +6,10 @@ import TextInput from "@/components/TextInput/TextInput";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
+import UploadImageDialog from "@/components/UploadImageDialog/UploadImageDialog";
 
 const Profile = async () => {
-  const { name, email, createdAt, profileImage, nickname, subscription } =
-    await getUser();
+  const { name, email, createdAt, nickname, subscription } = await getUser();
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -18,13 +18,15 @@ const Profile = async () => {
         <section className="flex w-full flex-col items-center justify-start rounded-b-md bg-[#0d091f]">
           <section className="flex w-[95%] items-center justify-between">
             <div className="m-4">
-              <Image
-                src={profileIcon}
-                alt="profile photo"
-                className="rounded-full object-contain"
-                width={150}
-                height={75}
-              />
+              <UploadImageDialog>
+                <Image
+                  src={profileIcon}
+                  alt="profile photo"
+                  className="rounded-full object-contain"
+                  width={150}
+                  height={75}
+                />
+              </UploadImageDialog>
             </div>
             <div className="flex w-full items-center justify-between">
               <div>
