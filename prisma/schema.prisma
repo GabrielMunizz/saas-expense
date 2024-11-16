@@ -36,8 +36,13 @@ model User {
   updatedAt    DateTime      @updatedAt @map("updated_at")
   transactions Transaction[]
   nickname     String?       @default("")
-  profileImage String?       
-  subscription String        @default("Free")
+  profileImage String?
+  subscription Plan          @default(FREE)
+}
+
+enum Plan {
+  FREE
+  PREMIUM
 }
 
 enum TransactionType {
