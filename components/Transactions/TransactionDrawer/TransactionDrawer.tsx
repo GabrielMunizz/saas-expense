@@ -129,7 +129,7 @@ const TransactionDrawer = ({
     <Drawer
       onOpenChange={(open) => {
         if (!open) {
-          setIsOpen(false);
+          setIsOpen(open);
           form.reset();
         }
       }}

@@ -15,31 +15,55 @@ import { useForm } from "react-hook-form";
 import FormInput from "../Form/FormInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider } from "react-hook-form";
+import { toast } from "sonner";
+import editUserProfile from "@/backend/actions/edit-user";
 
 const editProfileSchema = z.object({
-  name: z.string().optional(),
+  name: z.string().min(2).optional(),
   email: z.string().email({ message: "Email inválido!" }),
-  nickname: z.string().optional(),
-  profileImage: z.string().trim().min(1).optional(),
+  nickname: z.string().min(2).optional(),
+  profileImage: z.string().trim().min(2).optional(),
 });
 
 type FormData = z.infer<typeof editProfileSchema>;
 
-const EditProfileDialog = () => {
+type EditProfileDialogProps = {
+  name: string;
+  email: string;
+  nickname: string | null;
+  profileImage: string | null;
+};
+
+const EditProfileDialog = ({
+  name,
+  email,
+  nickname,
+  profileImage,
+}: EditProfileDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      nickname: "",
-      profileImage: "",
+      name,
+      email,
+      nickname: nickname ?? "",
+      profileImage: profileImage ?? "",
     },
   });
 
-  const handleSubmit = (data: FormData) => {
-    console.log({ data });
+  const handleSubmit = async (data: FormData) => {
+    try {
+      await editUserProfile(data);
+      form.reset();
+      setOpen(false);
+      toast.success("Perfil editado com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "Oops! Um erro inesperado ocorreu. Por favor, tente mais tarde.",
+      );
+    }
   };
 
   return (

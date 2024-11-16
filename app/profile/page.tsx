@@ -24,8 +24,8 @@ const Profile = async () => {
                 }
                 alt="profile photo"
                 className="rounded-full object-contain"
-                width={200}
-                height={100}
+                width={150}
+                height={75}
               />
             </div>
             <div className="flex w-full items-center justify-between">
@@ -39,7 +39,12 @@ const Profile = async () => {
                 <h2 className="text-lg text-muted-foreground">{email}</h2>
               </div>
               <div className="mr-8">
-                <EditProfileDialog />
+                <EditProfileDialog
+                  name={name}
+                  nickname={nickname}
+                  email={email}
+                  profileImage={profileImage}
+                />
               </div>
             </div>
           </section>
