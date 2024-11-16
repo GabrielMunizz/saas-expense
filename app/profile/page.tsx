@@ -1,11 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import profileIcon from "@/public/profileIcon.png";
 import { getUser } from "@/backend/actions/get-user";
+import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import TextInput from "@/components/TextInput/TextInput";
+import profileIcon from "@/public/profileIcon.png";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
-import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
+import { Plan } from "@prisma/client";
+import Image from "next/image";
 
 const Profile = async () => {
   const { name, email, createdAt, profileImage, nickname, subscription } =
@@ -32,7 +32,7 @@ const Profile = async () => {
               <div>
                 <div className="flex items-center justify-start">
                   <h2 className="mb-[4px] mr-2 text-2xl font-bold">{name}</h2>
-                  {subscription === "Premium" && (
+                  {subscription === Plan.PREMIUM && (
                     <CrownSimple color="orange" weight="fill" size={18} />
                   )}
                 </div>
@@ -61,7 +61,7 @@ const Profile = async () => {
             <div className="ml-16">
               <TextInput
                 label="Plano:"
-                defaultValue={subscription}
+                defaultValue={subscription as string}
                 readonly
                 className="w-[250px] border-0 outline-none focus-visible:ring-0"
               />
