@@ -26,7 +26,7 @@ const editProfileSchema = z.object({
   name: z.string().trim().min(2).optional(),
   email: z.string().email({ message: "Email inválido!" }),
   nickname: z.string().trim().optional(),
-  profileImage: z.instanceof(File).optional(),
+  profileImage: z.instanceof(File).nullable().optional(),
 });
 
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
@@ -51,7 +51,7 @@ const EditProfileDialog = ({
       name,
       email,
       nickname: nickname ?? undefined,
-      profileImage: undefined,
+      profileImage: null,
     },
   });
 
@@ -59,12 +59,13 @@ const EditProfileDialog = ({
     // Adds the image file to a FormData object so the server action can handle the data properly
     try {
       const formData = new FormData();
-
       if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
       }
 
-      const cloudinaryURL = await uploadImage(formData);
+      const cloudinaryURL = data.profileImage
+        ? await uploadImage(formData)
+        : "";
 
       await editUserProfile({ ...data, profileImage: cloudinaryURL });
       form.reset();

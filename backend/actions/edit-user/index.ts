@@ -11,7 +11,7 @@ type EditUserParams = {
   name?: string;
   email: string;
   nickname?: string;
-  profileImage?: string | null;
+  profileImage?: string;
 };
 
 const editUserProfile = async (params: EditUserParams) => {
