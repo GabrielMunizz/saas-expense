@@ -11,7 +11,7 @@ type EditUserParams = {
   name?: string;
   email: string;
   nickname?: string;
-  profileImage?: string;
+  profileImage?: string | null;
 };
 
 const editUserProfile = async (params: EditUserParams) => {
@@ -27,7 +27,7 @@ const editUserProfile = async (params: EditUserParams) => {
     email: params.email,
     ...(params.name?.trim() && { name: params.name }),
     ...(params.nickname?.trim() && { nickname: params.nickname }),
-    ...(params.profileImage?.trim() && { profileImage: params.profileImage }),
+    ...(params.profileImage && { profileImage: params.profileImage }),
   };
 
   await prisma.user.update({

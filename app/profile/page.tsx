@@ -1,14 +1,14 @@
 import { getUser } from "@/backend/actions/get-user";
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
+import ProfileImage from "@/components/ProfileImage/ProfileImage";
 import TextInput from "@/components/TextInput/TextInput";
-import profileIcon from "@/public/profileIcon.png";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import { Plan } from "@prisma/client";
-import Image from "next/image";
 
 const Profile = async () => {
-  const { name, email, createdAt, nickname, subscription } = await getUser();
+  const { name, email, createdAt, nickname, subscription, profileImage } =
+    await getUser();
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -17,13 +17,7 @@ const Profile = async () => {
         <section className="flex w-full flex-col items-center justify-start rounded-b-md bg-[#0d091f]">
           <section className="flex w-[95%] items-center justify-between">
             <div className="m-4">
-              <Image
-                src={profileIcon}
-                alt="profile photo"
-                className="rounded-full object-contain"
-                width={150}
-                height={75}
-              />
+              <ProfileImage profileImage={profileImage} />
             </div>
             <div className="flex w-full items-center justify-between">
               <div>

@@ -17,16 +17,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import editUserProfile from "@/backend/actions/edit-user";
-import uploadImage from "@/backend/actions/uploadImage";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { PlusCircle } from "@phosphor-icons/react/dist/ssr/PlusCircle";
+import uploadImage from "@/backend/actions/upload-image";
 
 const editProfileSchema = z.object({
-  name: z.string().min(2).optional(),
+  name: z.string().trim().min(2).optional(),
   email: z.string().email({ message: "Email inválido!" }),
-  nickname: z.string().min(2).optional(),
-  profileImage: z.string().trim().min(2).optional(),
+  nickname: z.string().trim().optional(),
+  profileImage: z.instanceof(File).optional(),
 });
 
-type FormData = z.infer<typeof editProfileSchema>;
+type EditProfileFormData = z.infer<typeof editProfileSchema>;
 
 type EditProfileDialogProps = {
   name: string;
@@ -40,20 +43,30 @@ const EditProfileDialog = ({
   nickname,
 }: EditProfileDialogProps) => {
   const [open, setOpen] = useState(false);
+  const [fileName, setFileName] = useState("Escolha uma foto de perfil");
 
-  const form = useForm<FormData>({
+  const form = useForm<EditProfileFormData>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
       name,
       email,
-      nickname: nickname ?? "",
-      profileImage: "",
+      nickname: nickname ?? undefined,
+      profileImage: undefined,
     },
   });
 
-  const handleSubmit = async (data: FormData) => {
+  const handleSubmit = async (data: EditProfileFormData) => {
+    // Adds the image file to a FormData object so the server action can handle the data properly
     try {
-      await editUserProfile(data);
+      const formData = new FormData();
+
+      if (data.profileImage) {
+        formData.append("profileImage", data.profileImage);
+      }
+
+      const cloudinaryURL = await uploadImage(formData);
+
+      await editUserProfile({ ...data, profileImage: cloudinaryURL });
       form.reset();
       setOpen(false);
       toast.success("Perfil editado com sucesso!");
@@ -65,8 +78,23 @@ const EditProfileDialog = ({
     }
   };
 
+  const handleFileNameChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const file = target.files?.[0];
+    // The profileImage field is initially undefined, so we need to set its value using the file captured by the onChange event
+    form.setValue("profileImage", file);
+    setFileName(file ? `Arquivo: ${file.name}` : "Escolha uma foto de perfil");
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={() => {
+        setOpen((prev) => !prev);
+        setFileName("Escolha uma foto de perfil");
+      }}
+    >
       <DialogClose />
       <DialogTrigger asChild>
         <Button className="w-[100px]">Editar</Button>
@@ -79,7 +107,6 @@ const EditProfileDialog = ({
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className="flex flex-col gap-3"
-            action={uploadImage}
           >
             <FormInput
               form={form}
@@ -100,12 +127,23 @@ const EditProfileDialog = ({
               label="Nickname"
               placeholder="Digite seu apelido"
             />
-            <FormInput
-              form={form}
-              name="profileImage"
-              label="Imagem de perfil"
-              placeholder="URL da imagem"
-            />
+
+            <Label className="mt-4 flex cursor-pointer items-center justify-center rounded-md border-2 border-muted-foreground py-4 text-center">
+              {fileName === "Escolha uma foto de perfil" && (
+                <PlusCircle
+                  size={18}
+                  weight="fill"
+                  className="mr-2 text-muted-foreground"
+                />
+              )}
+              {fileName}
+              <Input
+                type="file"
+                className="hidden"
+                {...form.register("profileImage", { required: true })}
+                onChange={handleFileNameChange}
+              />
+            </Label>
 
             <Button type="submit" className="mt-8 h-full py-3 font-bold">
               Confirmar
