@@ -1,8 +1,8 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/backend/authentication/auth";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
 export const getUser = async () => {
   const session = await getServerSession(authOptions);
@@ -22,7 +22,7 @@ export const getUser = async () => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { password, ...rest } = user;
+  const { password, ...userWihtoutPassword } = user;
 
-  return rest;
+  return userWihtoutPassword;
 };
