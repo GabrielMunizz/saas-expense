@@ -22,7 +22,7 @@ export const getUser = async () => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { password, ...userWihtoutPassword } = user;
+  const { password, ...userWithoutPassword } = user;
 
-  return userWihtoutPassword;
+  return userWithoutPassword;
 };
