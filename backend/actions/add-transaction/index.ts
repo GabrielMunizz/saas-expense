@@ -1,15 +1,16 @@
 "use server";
 
-import { addTransactionSchema } from "./schema";
+import { authOptions } from "@/backend/authentication/auth";
 import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
 import {
   PaymentMethod,
   TransactionCategory,
   TransactionType,
 } from "@prisma/client";
-import { authOptions } from "@/backend/authentication/auth";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { addTransactionSchema } from "./schema";
 
 type TransactionParams = {
   id?: string;
@@ -27,7 +28,7 @@ export const addTransaction = async (params: TransactionParams) => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
-    throw new Error("Unauthorized");
+    redirect("/api/sign-out");
   }
 
   const userId = session.user.id;

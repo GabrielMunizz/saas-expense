@@ -3,12 +3,13 @@
 import { authOptions } from "@/backend/authentication/auth";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export const getUser = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    throw new Error("Unauthorized");
+    redirect("/api/sign-out");
   }
 
   const userId = session.user.id;
@@ -18,7 +19,7 @@ export const getUser = async () => {
   });
 
   if (!user) {
-    throw new Error("User not found");
+    redirect("/api/sign-out");
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

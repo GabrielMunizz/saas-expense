@@ -1,16 +1,17 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/backend/authentication/auth";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const deleteTransaction = async (id: string) => {
   const session = await getServerSession(authOptions);
   const userId = session?.user.id;
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    redirect("/api/sign-out");
   }
 
   if (!id) {

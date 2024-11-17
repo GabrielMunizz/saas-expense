@@ -1,9 +1,9 @@
 import { getUser } from "@/backend/actions/get-user";
+import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import TextInput from "@/components/TextInput/TextInput";
 import profileIcon from "@/public/profileIcon.png";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
-import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import { Plan } from "@prisma/client";
 import Image from "next/image";
 

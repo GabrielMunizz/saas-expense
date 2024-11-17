@@ -1,10 +1,11 @@
 "use server";
 
-import { editProfileSchema } from "./schema";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/backend/authentication/auth";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { editProfileSchema } from "./schema";
 
 type EditUserParams = {
   name?: string;
@@ -17,7 +18,7 @@ const editUserProfile = async (params: EditUserParams) => {
   editProfileSchema.parse(params);
   const session = await getServerSession(authOptions);
   if (!session) {
-    throw new Error("Unauthorized");
+    redirect("/api/sign-out");
   }
 
   const userId = session.user.id;
