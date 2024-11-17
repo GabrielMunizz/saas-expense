@@ -21,7 +21,8 @@ export const getUser = async () => {
     throw new Error("User not found");
   }
 
-  const { name, email, createdAt, profileImage, nickname, subscription } = user;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password, ...rest } = user;
 
-  return { name, email, createdAt, profileImage, nickname, subscription };
+  return rest;
 };

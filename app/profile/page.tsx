@@ -4,7 +4,6 @@ import profileIcon from "@/public/profileIcon.png";
 import formatDate from "@/utils/formatDate";
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
-import UploadImageDialog from "@/components/UploadImageDialog/UploadImageDialog";
 import { Plan } from "@prisma/client";
 import Image from "next/image";
 
@@ -18,15 +17,13 @@ const Profile = async () => {
         <section className="flex w-full flex-col items-center justify-start rounded-b-md bg-[#0d091f]">
           <section className="flex w-[95%] items-center justify-between">
             <div className="m-4">
-              <UploadImageDialog>
-                <Image
-                  src={profileIcon}
-                  alt="profile photo"
-                  className="rounded-full object-contain"
-                  width={150}
-                  height={75}
-                />
-              </UploadImageDialog>
+              <Image
+                src={profileIcon}
+                alt="profile photo"
+                className="rounded-full object-contain"
+                width={150}
+                height={75}
+              />
             </div>
             <div className="flex w-full items-center justify-between">
               <div>
@@ -60,7 +57,9 @@ const Profile = async () => {
             <div className="ml-16">
               <TextInput
                 label="Plano:"
-                defaultValue={subscription as string}
+                defaultValue={
+                  subscription === Plan.PREMIUM ? "Premium" : "Free"
+                }
                 readonly
                 className="w-[250px] border-0 outline-none focus-visible:ring-0"
               />
