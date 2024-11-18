@@ -21,12 +21,13 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { PlusCircle } from "@phosphor-icons/react/dist/ssr/PlusCircle";
 import uploadImage from "@/backend/actions/upload-image";
+import { Button as CustomButton } from "../Button";
 
 const editProfileSchema = z.object({
   name: z.string().trim().min(2).optional(),
   email: z.string().email({ message: "Email inválido!" }),
   nickname: z.string().trim().optional(),
-  profileImage: z.instanceof(File).optional(),
+  profileImage: z.instanceof(File).nullable().optional(),
 });
 
 type EditProfileFormData = z.infer<typeof editProfileSchema>;
@@ -44,6 +45,7 @@ const EditProfileDialog = ({
 }: EditProfileDialogProps) => {
   const [open, setOpen] = useState(false);
   const [fileName, setFileName] = useState("Escolha uma foto de perfil");
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<EditProfileFormData>({
     resolver: zodResolver(editProfileSchema),
@@ -51,20 +53,22 @@ const EditProfileDialog = ({
       name,
       email,
       nickname: nickname ?? undefined,
-      profileImage: undefined,
+      profileImage: null,
     },
   });
 
   const handleSubmit = async (data: EditProfileFormData) => {
     // Adds the image file to a FormData object so the server action can handle the data properly
+    setIsLoading(true);
     try {
       const formData = new FormData();
 
+      let cloudinaryURL = "";
+
       if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
+        cloudinaryURL = await uploadImage(formData);
       }
-
-      const cloudinaryURL = await uploadImage(formData);
 
       await editUserProfile({ ...data, profileImage: cloudinaryURL });
       form.reset();
@@ -75,6 +79,8 @@ const EditProfileDialog = ({
       toast.error(
         "Oops! Um erro inesperado ocorreu. Por favor, tente mais tarde.",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -145,9 +151,13 @@ const EditProfileDialog = ({
               />
             </Label>
 
-            <Button type="submit" className="mt-8 h-full py-3 font-bold">
+            <CustomButton
+              isLoading={isLoading}
+              type="submit"
+              className="mt-8 h-full py-3 font-bold"
+            >
               Confirmar
-            </Button>
+            </CustomButton>
           </form>
         </FormProvider>
       </DialogContent>
