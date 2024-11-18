@@ -1,12 +1,12 @@
 "use client";
 
+import { CATEGORY_LABELS } from "@/app/_constants/_transactionConstants";
+import formatDate from "@/utils/formatDate";
 import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import formatDate from "@/utils/formatDate";
+import EditTransaction from "../EditTransaction/EditTransaction";
 import TransactionCategoryBadge from "../TransactionCategoryBadge/TransactionCategoryBadge";
 import TransactionPaymentMethod from "../TransactionPaymentMethod/TransactionPaymentMethod";
-import EditTransaction from "../EditTransaction/EditTransaction";
-import { CATEGORY_LABELS } from "@/app/_constants/_transactionConstants";
 
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {
@@ -34,10 +34,9 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "date",
     header: "Data do lançamento",
-    cell: ({ row: { original: transaction } }) =>
-      formatDate(transaction.createdAt),
+    cell: ({ row: { original: transaction } }) => formatDate(transaction.date),
   },
   {
     accessorKey: "amount",
