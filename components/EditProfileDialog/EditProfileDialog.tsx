@@ -62,13 +62,13 @@ const EditProfileDialog = ({
     setIsLoading(true);
     try {
       const formData = new FormData();
+
+      let cloudinaryURL = "";
+
       if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
+        cloudinaryURL = await uploadImage(formData);
       }
-
-      const cloudinaryURL = data.profileImage
-        ? await uploadImage(formData)
-        : "";
 
       await editUserProfile({ ...data, profileImage: cloudinaryURL });
       form.reset();
