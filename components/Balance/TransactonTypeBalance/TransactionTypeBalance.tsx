@@ -6,7 +6,6 @@ type TransactionTypeBalanceProps = {
   children: React.ReactNode;
   classname?: string;
   transactionType: string | undefined;
-  onClickFn?: () => void;
 };
 
 const TransactionTypeBalance = ({
@@ -14,12 +13,10 @@ const TransactionTypeBalance = ({
   children,
   classname,
   transactionType,
-  onClickFn,
 }: TransactionTypeBalanceProps) => {
   return (
     <div
       className={`${cn(classname)} cursor-pointer rounded-xl border-2 border-muted p-8 hover:bg-[#0d091f]`}
-      onClick={onClickFn}
     >
       <div className="mb-2 flex w-full items-center justify-start">
         {children}
