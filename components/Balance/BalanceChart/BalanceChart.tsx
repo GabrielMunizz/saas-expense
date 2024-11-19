@@ -8,7 +8,6 @@ import { PieSectorDataItem } from "recharts/types/polar/Pie";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -61,8 +60,7 @@ const BalanceChart = ({ currentMonth }: BalanceChartProps) => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Balanço</CardTitle>
-        <CardDescription>{currentMonth}</CardDescription>
+        <CardTitle>{currentMonth}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
