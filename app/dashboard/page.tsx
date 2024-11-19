@@ -31,7 +31,7 @@ const Page = () => {
         <section className="flex flex-col items-center justify-start">
           <Balance />
           <ByTypeBalance />
-          <div className="grid w-full grid-cols-[1.15fr_2fr]">
+          <div className="grid w-full grid-cols-[1.17fr_2fr]">
             <BalanceChart currentMonth={MONTHS[currentMonth]} />
           </div>
         </section>
