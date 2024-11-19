@@ -15,9 +15,7 @@ const TransactionTypeBalance = ({
   transactionType,
 }: TransactionTypeBalanceProps) => {
   return (
-    <div
-      className={`${cn(classname)} cursor-pointer rounded-xl border-2 border-muted p-8 hover:bg-[#0d091f]`}
-    >
+    <div className={`${cn(classname)} rounded-xl border-2 border-muted p-8`}>
       <div className="mb-2 flex w-full items-center justify-start">
         {children}
         <h2 className="ml-2 text-muted-foreground">{transactionType}</h2>

@@ -18,6 +18,7 @@ const ByTypeBalance = () => {
         <TransactionTypeBalance
           transactionType={formatTransactionType(TransactionType.INVESTMENT)}
           total={3500}
+          classname="bg-[#0d091f]"
         >
           <PiggyBank size={28} />
         </TransactionTypeBalance>
