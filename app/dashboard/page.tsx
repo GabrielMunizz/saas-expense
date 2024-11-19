@@ -3,6 +3,8 @@ import { MONTHS } from "../_constants/_transactionConstants";
 import { FileText } from "@phosphor-icons/react/dist/ssr";
 import Balance from "@/components/Balance/Balance";
 
+import ByTypeBalance from "@/components/Balance/ByTypeBalance/ByTypeBalance";
+
 const Page = () => {
   const currentMonth = new Date().getMonth();
 
@@ -26,9 +28,8 @@ const Page = () => {
 
       <section className="grid w-[90%] grid-cols-[2fr_1fr] gap-16">
         <section className="flex flex-col items-center justify-start">
-          <div className="w-full">
-            <Balance />
-          </div>
+          <Balance />
+          <ByTypeBalance />
         </section>
         <aside className="flex items-center justify-center border-2">
           transações
