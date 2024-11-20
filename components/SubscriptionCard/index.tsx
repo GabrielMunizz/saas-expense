@@ -1,77 +1,54 @@
-import { BellRing, Check } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
+import { getUser } from "@/backend/actions/user/get-user";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Separator } from "../ui/separator";
 
-const notifications = [
-  {
-    title: "Your call has been confirmed.",
-    description: "1 hour ago",
-  },
-  {
-    title: "You have a new message!",
-    description: "1 hour ago",
-  },
-  {
-    title: "Your subscription is expiring soon!",
-    description: "2 hours ago",
-  },
-];
+interface Benefits {
+  icon: "include" | "exclude";
+  description: string;
+}
 
-type CardProps = React.ComponentProps<typeof Card>;
+type CardProps = {
+  className?: string;
+  data: {
+    title: string;
+    plan: "FREE" | "PREMIUM";
+    value: number;
+    benefits: Benefits[];
+  };
+};
 
-export function SubscriptionCard({ className, ...props }: CardProps) {
+export async function SubscriptionCard({ className, data }: CardProps) {
+  const { benefits, plan, title, value } = data;
+  const { subscription } = await getUser();
+  const isCurrentPlan = subscription === plan;
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>You have 3 unread messages.</CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="flex items-center space-x-4 rounded-md border p-4">
-          <BellRing />
-          <div className="flex-1 space-y-1">
-            zz
-            <p className="text-sm font-medium leading-none">
-              Push Notifications
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Send notifications to device.
-            </p>
+    <Card className={cn("w-[380px]", className)}>
+      <CardHeader className="flex items-center gap-2">
+        {isCurrentPlan && (
+          <div className="rounded-xl bg-purple-950 bg-opacity-80 p-2 text-primary">
+            Atual
           </div>
-        </div>
+        )}
         <div>
-          {notifications.map((notification, index) => (
-            <div
-              key={index}
-              className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
-            >
-              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-              <div className="space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {notification.title}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {notification.description}
-                </p>
-              </div>
-            </div>
-          ))}
+          <CardTitle>{title}</CardTitle>
+          <CardDescription className="flex items-center gap-2 text-3xl">
+            R$
+            <span className="text-5xl font-semibold text-foreground">
+              {value}
+            </span>
+            /mês
+          </CardDescription>
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">
-          <Check /> Mark all as read
-        </Button>
-      </CardFooter>
+      </CardHeader>
+      <Separator />
+      <CardContent className="grid gap-4">Olá</CardContent>
     </Card>
   );
 }

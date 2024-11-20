@@ -34,7 +34,6 @@ export default function RootLayout({
         className={`${mulish.className} ${raleway.className} dark antialiased`}
       >
         {children}
-
         <Toaster richColors closeButton />
       </body>
     </html>
