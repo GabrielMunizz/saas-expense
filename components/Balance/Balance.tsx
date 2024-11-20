@@ -13,7 +13,7 @@ const Balance = async () => {
   const investments = calculateBalance(transactions, "INVESTMENT");
   const loans = calculateBalance(transactions, "LOAN");
 
-  const balance = revenue - expenses - investments - loans;
+  const balance = revenue + loans - expenses - investments;
 
   return (
     <div className="w-full">

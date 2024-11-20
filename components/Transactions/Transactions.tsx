@@ -17,7 +17,7 @@ const Transactions = ({ userId }: TransactionProps) => {
   });
 
   return (
-    <div className="w-[95%]">
+    <div className="w-full">
       {isLoading ? (
         <DateTableLoading columns={transactionColumns} />
       ) : (
