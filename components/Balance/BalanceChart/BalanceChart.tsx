@@ -18,45 +18,59 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-];
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
+  deposits: {
+    label: "Receita",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
+  expenses: {
+    label: "Despesas",
     color: "hsl(var(--chart-5))",
+  },
+  investiments: {
+    label: "Investimentos",
+    color: "hsl(var(--chart-1))",
+  },
+  loans: {
+    label: "Empréstimos",
+    color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig;
 
 type BalanceChartProps = {
   currentMonth: string;
+  balanceData: {
+    deposits: number;
+    expenses: number;
+    investiments: number;
+    loans: number;
+  };
 };
 
-const BalanceChart = ({ currentMonth }: BalanceChartProps) => {
+const BalanceChart = ({ currentMonth, balanceData }: BalanceChartProps) => {
+  const chartData = [
+    {
+      category: "Receita",
+      amount: balanceData.deposits,
+      fill: "var(--color-deposits)",
+    },
+    {
+      category: "Investimentos",
+      amount: balanceData.investiments,
+      fill: "var(--color-investiments)",
+    },
+    {
+      category: "Despesas",
+      amount: balanceData.expenses,
+      fill: "var(--color-expenses)",
+    },
+    {
+      category: "Empréstimos",
+      amount: balanceData.loans,
+      fill: "var(--color-loans)",
+    },
+  ];
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -74,8 +88,8 @@ const BalanceChart = ({ currentMonth }: BalanceChartProps) => {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="amount"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={0}

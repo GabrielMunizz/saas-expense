@@ -6,9 +6,24 @@ import Balance from "@/components/Balance/Balance";
 import ByTypeBalance from "@/components/Balance/ByTypeBalance/ByTypeBalance";
 import BalanceChart from "@/components/Balance/BalanceChart/BalanceChart";
 import ExpensesByCategory from "@/components/ExpensesByCategory/ExpensesByCategory";
+import { getTransactions } from "@/backend/actions/transactions/get-transactions";
+import { calculateBalance } from "@/utils/calculateBalance";
 
-const Page = () => {
+const Page = async () => {
   const currentMonth = new Date().getMonth();
+  const transactions = await getTransactions();
+
+  const deposits = calculateBalance(transactions, "DEPOSIT");
+  const investiments = calculateBalance(transactions, "INVESTMENT");
+  const expenses = calculateBalance(transactions, "EXPENSE");
+  const loans = calculateBalance(transactions, "LOAN");
+
+  const balanceData = {
+    deposits,
+    investiments,
+    expenses,
+    loans,
+  };
 
   return (
     <main className="flex w-full flex-col items-center justify-start">
@@ -33,7 +48,10 @@ const Page = () => {
           <Balance />
           <ByTypeBalance />
           <div className="grid w-full grid-cols-[1.3fr_2.12fr] gap-9">
-            <BalanceChart currentMonth={MONTHS[currentMonth]} />
+            <BalanceChart
+              balanceData={balanceData}
+              currentMonth={MONTHS[currentMonth]}
+            />
             <ExpensesByCategory />
           </div>
         </section>
