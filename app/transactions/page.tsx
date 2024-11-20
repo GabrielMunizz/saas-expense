@@ -7,7 +7,7 @@ const Page = async () => {
   const session = await getServerSession(authOptions);
   const usarId = session?.user.id as string;
   return (
-    <div className="flex w-full flex-col items-center p-12">
+    <div className="flex w-full flex-col items-center px-24 py-6">
       <div className="mb-6 flex w-full items-center justify-between">
         <h1 className="text-2xl font-semibold">Transações</h1>
         <AddTransaction />

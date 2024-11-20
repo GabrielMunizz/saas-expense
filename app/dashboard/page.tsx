@@ -5,6 +5,7 @@ import Balance from "@/components/Balance/Balance";
 
 import ByTypeBalance from "@/components/Balance/ByTypeBalance/ByTypeBalance";
 import BalanceChart from "@/components/Balance/BalanceChart/BalanceChart";
+import ExpensesByCategory from "@/components/ExpensesByCategory/ExpensesByCategory";
 
 const Page = () => {
   const currentMonth = new Date().getMonth();
@@ -13,7 +14,7 @@ const Page = () => {
     <main className="flex w-full flex-col items-center justify-start">
       <header className="my-8 flex w-[90%] items-center justify-between">
         <div>
-          <h1 className="text-2xl">Dashboard</h1>
+          <h1 className="text-2xl font-semibold">Dashboard</h1>
         </div>
         <div className="flex w-[30%] items-center justify-between">
           <button className="flex items-center justify-start hover:text-purple-700">
@@ -31,8 +32,9 @@ const Page = () => {
         <section className="flex flex-col items-center justify-start">
           <Balance />
           <ByTypeBalance />
-          <div className="grid w-full grid-cols-[1.17fr_2fr]">
+          <div className="grid w-full grid-cols-[1.3fr_2.12fr] gap-9">
             <BalanceChart currentMonth={MONTHS[currentMonth]} />
+            <ExpensesByCategory />
           </div>
         </section>
         <aside className="flex items-center justify-center border-2">
