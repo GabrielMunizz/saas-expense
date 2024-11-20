@@ -10,17 +10,19 @@ import { cn } from "@/lib/utils";
 
 type SelectInputProps = {
   selectOptions: string[];
-  selectLabel: string;
+  selectLabel?: string;
   className?: string;
+  defaultValue?: string;
 };
 
 const SelectInput = ({
   selectLabel,
   selectOptions,
   className,
+  defaultValue,
 }: SelectInputProps) => {
   return (
-    <Select>
+    <Select defaultValue={defaultValue}>
       <SelectTrigger className={cn("w-[250px]", className)}>
         <SelectValue placeholder={selectLabel} />
       </SelectTrigger>

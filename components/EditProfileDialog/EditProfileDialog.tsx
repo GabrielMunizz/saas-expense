@@ -16,11 +16,11 @@ import FormInput from "../Form/FormInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
-import editUserProfile from "@/backend/actions/edit-user";
+import editUserProfile from "@/backend/actions/user/edit-user";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { PlusCircle } from "@phosphor-icons/react/dist/ssr/PlusCircle";
-import uploadImage from "@/backend/actions/upload-image";
+import uploadImage from "@/backend/actions/user/upload-image";
 import { Button as CustomButton } from "../Button";
 
 const editProfileSchema = z.object({

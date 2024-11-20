@@ -30,7 +30,7 @@ export const PAYMENT_METHOD_LABELS = {
 export const TRANSACTION_TYPE_OPTIONS = [
   {
     value: TransactionType.DEPOSIT,
-    label: "Depósito",
+    label: "Receita",
   },
   {
     value: TransactionType.EXPENSE,
@@ -118,4 +118,19 @@ export const CATEGORY_OPTIONS = [
     value: TransactionCategory.UTILITY,
     label: CATEGORY_LABELS[TransactionCategory.UTILITY],
   },
+];
+
+export const MONTHS = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
 ];
