@@ -9,6 +9,11 @@ const Balance = async () => {
   const transactions = await getTransactions();
 
   const revenue = calculateBalance(transactions, "DEPOSIT");
+  const expenses = calculateBalance(transactions, "EXPENSE");
+  const investments = calculateBalance(transactions, "INVESTMENT");
+  const loans = calculateBalance(transactions, "LOAN");
+
+  const balance = revenue - expenses - investments - loans;
 
   return (
     <div className="w-full">
@@ -18,7 +23,7 @@ const Balance = async () => {
           <h1 className="text-muted-foreground">Saldo</h1>
         </div>
         <div className="flex w-full items-center justify-between">
-          <ShowBalance balance={revenue} />
+          <ShowBalance balance={balance} />
           <AddTransaction />
         </div>
       </div>

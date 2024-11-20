@@ -1,5 +1,6 @@
 "use client";
 
+import { formatBalance } from "@/utils/formatBalance";
 import { Eye, EyeSlash } from "@phosphor-icons/react/dist/ssr";
 import React, { useState } from "react";
 
@@ -12,7 +13,9 @@ const ShowBalance = ({ balance }: ShowBalanceProps) => {
 
   return (
     <div className="flex items-center justify-center">
-      <h2 className="text-3xl">R${showBalance ? balance : "******"}</h2>
+      <h2 className="text-3xl">
+        {showBalance ? formatBalance(balance) : "******"}
+      </h2>
       <button onClick={() => setShowBalance((prev) => !prev)}>
         {showBalance ? (
           <Eye size={24} className="ml-4" />
