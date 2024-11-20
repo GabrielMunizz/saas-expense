@@ -1,4 +1,4 @@
-import { getUser } from "@/backend/actions/get-user";
+import { getUser } from "@/backend/actions/user/get-user";
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import ProfileImage from "@/components/ProfileImage/ProfileImage";
 import TextInput from "@/components/TextInput/TextInput";

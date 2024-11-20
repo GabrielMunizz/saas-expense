@@ -6,7 +6,7 @@ import Balance from "@/components/Balance/Balance";
 import ByTypeBalance from "@/components/Balance/ByTypeBalance/ByTypeBalance";
 import BalanceChart from "@/components/Balance/BalanceChart/BalanceChart";
 
-const Page = () => {
+const Page = async () => {
   const currentMonth = new Date().getMonth();
 
   return (

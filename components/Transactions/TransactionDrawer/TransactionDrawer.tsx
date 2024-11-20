@@ -22,7 +22,7 @@ import {
   PAYMENT_METHOD_OPTIONS,
   TRANSACTION_TYPE_OPTIONS,
 } from "@/app/_constants/_transactionConstants";
-import { addTransaction } from "@/backend/actions/add-transaction";
+import { addTransaction } from "@/backend/actions/transactions/add-transaction";
 import FormFieldInput from "@/components/FormField/FormFieldInput/FormFieldInput";
 import FormFieldSelect from "@/components/FormField/FormFieldSelect/FormFieldSelect";
 import { DatePicker } from "@/components/ui/date-picker";

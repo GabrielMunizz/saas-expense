@@ -1,6 +1,6 @@
 "use client";
 
-import deleteTransaction from "@/backend/actions/delete-transaction";
+import deleteTransaction from "@/backend/actions/transactions/delete-transaction";
 import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react/dist/ssr";
 import { Transaction } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
