@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { formatBalance } from "@/utils/formatBalance";
 import React from "react";
 
 type TransactionTypeBalanceProps = {
@@ -20,7 +21,7 @@ const TransactionTypeBalance = ({
         {children}
         <h2 className="ml-2 text-muted-foreground">{transactionType}</h2>
       </div>
-      <h2 className="text-xl font-bold">R$: {total}</h2>
+      <h2 className="text-xl font-bold">{formatBalance(total)}</h2>
     </div>
   );
 };
