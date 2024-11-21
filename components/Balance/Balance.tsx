@@ -2,12 +2,14 @@ import { Wallet } from "@phosphor-icons/react/dist/ssr";
 import React from "react";
 import AddTransaction from "../Transactions/AddTransaction/AddTransaction";
 import ShowBalance from "./ShowBalance/ShowBalance";
-import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
+import { Transaction } from "@prisma/client";
 
-const Balance = async () => {
-  const transactions = await getTransactions();
+type BalanceProps = {
+  transactions: Transaction[];
+};
 
+const Balance = ({ transactions }: BalanceProps) => {
   const revenue = calculateBalance(transactions, "DEPOSIT");
   const expenses = calculateBalance(transactions, "EXPENSE");
   const investments = calculateBalance(transactions, "INVESTMENT");

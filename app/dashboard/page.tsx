@@ -46,14 +46,14 @@ const Page = async () => {
 
       <section className="grid w-[90%] grid-cols-[2fr_1fr] gap-16">
         <section className="flex flex-col items-center justify-start">
-          <Balance />
-          <ByTypeBalance />
+          <Balance transactions={transactions} />
+          <ByTypeBalance transactions={transactions} />
           <div className="grid w-full grid-cols-[1.3fr_2.12fr] gap-9">
             <BalanceChart
               balanceData={balanceData}
               currentMonth={MONTHS[currentMonth]}
             />
-            <ExpensesByCategory />
+            <ExpensesByCategory transactions={transactions} />
           </div>
         </section>
         <DashboardTransactions transactions={transactions} />

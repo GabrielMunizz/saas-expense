@@ -1,11 +1,14 @@
 import React from "react";
 import ByCategoryExpense from "./ByCategoryExpense/ByCategoryExpense";
-import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { calculateExpenseByCategory } from "@/utils/calculateExpenseByCategory";
 import { CATEGORY_LABELS } from "@/app/_constants/_transactionConstants";
+import { Transaction } from "@prisma/client";
 
-const ExpensesByCategory = async () => {
-  const transactions = await getTransactions();
+type ExpensesByCategoryProps = {
+  transactions: Transaction[];
+};
+
+const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
   const byExpense = calculateExpenseByCategory(transactions);
 
   return (
