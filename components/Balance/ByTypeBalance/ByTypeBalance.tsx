@@ -1,19 +1,20 @@
 import React from "react";
 import TransactionTypeBalance from "../TransactonTypeBalance/TransactionTypeBalance";
 import { formatTransactionType } from "@/utils/formatTransactionType";
-import { TransactionType } from "@prisma/client";
+import { Transaction, TransactionType } from "@prisma/client";
 import {
   ChartLineDown,
   ChartLineUp,
   Handshake,
   PiggyBank,
 } from "@phosphor-icons/react/dist/ssr";
-import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
 
-const ByTypeBalance = async () => {
-  const transactions = await getTransactions();
+type ByTypeBalanceProps = {
+  transactions: Transaction[];
+};
 
+const ByTypeBalance = ({ transactions }: ByTypeBalanceProps) => {
   const revenue = calculateBalance(transactions, "DEPOSIT");
   const expenses = calculateBalance(transactions, "EXPENSE");
   const investments = calculateBalance(transactions, "INVESTMENT");

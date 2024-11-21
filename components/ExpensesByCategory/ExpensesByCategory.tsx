@@ -1,11 +1,14 @@
 import React from "react";
 import ByCategoryExpense from "./ByCategoryExpense/ByCategoryExpense";
-import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { calculateExpenseByCategory } from "@/utils/calculateExpenseByCategory";
 import { CATEGORY_LABELS } from "@/app/_constants/_transactionConstants";
+import { Transaction } from "@prisma/client";
 
-const ExpensesByCategory = async () => {
-  const transactions = await getTransactions();
+type ExpensesByCategoryProps = {
+  transactions: Transaction[];
+};
+
+const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
   const byExpense = calculateExpenseByCategory(transactions);
 
   return (
@@ -14,7 +17,7 @@ const ExpensesByCategory = async () => {
         <h2 className="text-lg font-bold">Gastos por categoria</h2>
       </div>
       <hr className="my-4" />
-      <div>
+      <div className="grid grid-cols-2 gap-x-8">
         {byExpense.map((expense) => (
           <ByCategoryExpense
             key={expense.category}
