@@ -11,7 +11,7 @@ const Login = async () => {
   const userId = session?.user.id;
 
   if (userId) {
-    redirect("/transactions");
+    redirect("/dashboard");
   }
 
   return (
