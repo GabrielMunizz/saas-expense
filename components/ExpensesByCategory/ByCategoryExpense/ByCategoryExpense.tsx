@@ -14,13 +14,13 @@ const ByCategoryExpense = ({
   amount,
 }: ByCategoryExpenseProps) => {
   return (
-    <div className="mb-4 w-full">
+    <div className="mb-2 w-full">
       <div className="flex w-full items-center justify-between">
-        <h2 className="font-bold">{title}</h2>
-        <h2 className="font-bold">{percentage.toFixed()}%</h2>
+        <h2 className="text-sm font-bold">{title}</h2>
+        <h2 className="text-sm font-bold">{percentage.toFixed()}%</h2>
       </div>
       <Progress className="text-muted" value={percentage} />
-      <h2 className="text-muted-foreground">{formatBalance(amount)}</h2>
+      <h2 className="text-sm text-muted-foreground">{formatBalance(amount)}</h2>
     </div>
   );
 };
