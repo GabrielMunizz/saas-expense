@@ -17,7 +17,7 @@ const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
         <h2 className="text-lg font-bold">Gastos por categoria</h2>
       </div>
       <hr className="my-4" />
-      <div>
+      <div className="grid grid-cols-2 gap-x-8">
         {byExpense.map((expense) => (
           <ByCategoryExpense
             key={expense.category}

@@ -10,11 +10,11 @@ type DashboardTransactionsProps = {
 const DashboardTransactions = ({
   transactions,
 }: DashboardTransactionsProps) => {
-  const limitedTransactions = transactions.slice(0, 11);
+  const limitedTransactions = transactions.slice(0, 10);
   return (
     <aside className="flex flex-col items-center justify-start rounded-lg border-2 px-8 py-6">
       <DashTransactionsHeader />
-      <hr className="my-4 w-full" />
+      <hr className="mb-6 mt-4 w-full" />
       <section className="w-full">
         {limitedTransactions.map((transaction) => (
           <DashTransaction key={transaction.id} transaction={transaction} />
