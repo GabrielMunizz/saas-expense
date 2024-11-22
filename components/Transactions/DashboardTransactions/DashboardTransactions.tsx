@@ -12,7 +12,7 @@ const DashboardTransactions = ({
 }: DashboardTransactionsProps) => {
   const latestTransactions = transactions.slice(0, 11);
   return (
-    <aside className="flex flex-col items-center justify-start rounded-lg border-2 px-8 py-6">
+    <aside className="flex flex-col items-center justify-start rounded-lg border-[1px] px-8 py-6">
       <DashTransactionsHeader />
       <hr className="mb-6 mt-4 w-full" />
       {transactions.length !== 0 ? (

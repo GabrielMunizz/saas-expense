@@ -16,7 +16,9 @@ const TransactionTypeBalance = ({
   transactionType,
 }: TransactionTypeBalanceProps) => {
   return (
-    <div className={`${cn(classname)} rounded-xl border-2 border-muted p-8`}>
+    <div
+      className={`${cn(classname)} rounded-xl border-[1px] border-muted p-8`}
+    >
       <div className="mb-2 flex w-full items-center justify-start">
         {children}
         <h2 className="ml-2 text-muted-foreground">{transactionType}</h2>

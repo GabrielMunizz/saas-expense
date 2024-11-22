@@ -19,7 +19,7 @@ const Balance = ({ transactions }: BalanceProps) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center justify-center rounded-xl border-2 border-muted bg-[#0d091f] p-8">
+      <div className="flex flex-col items-center justify-center rounded-xl border-[1px] border-muted bg-[#0d091f] p-8">
         <div className="flex w-full items-center justify-start">
           <Wallet size={18} className="mr-2" />
           <h1 className="text-muted-foreground">Saldo</h1>

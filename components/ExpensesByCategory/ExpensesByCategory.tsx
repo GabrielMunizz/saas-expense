@@ -13,7 +13,7 @@ const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
   const gridSelector = byExpense.length > 5 ? "grid-cols-2" : "";
 
   return (
-    <section className="h-[433px] w-full rounded-lg border-2 border-muted px-8 py-6">
+    <section className="h-[433px] w-full rounded-lg border-[1px] border-muted px-8 py-6">
       <div>
         <h2 className="text-lg font-bold">Gastos por categoria</h2>
       </div>
