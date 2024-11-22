@@ -10,7 +10,9 @@ const Welcome = async () => {
   return (
     <div className="text-lx mb-6 mt-16 flex w-full flex-col justify-center">
       <h2>Bem vindo,</h2>
-      <h1 className="text-3xl text-primary">{username ?? "Usuário"}!</h1>
+      <h1 className="text-3xl font-bold text-primary">
+        {username ?? "Usuário"}!
+      </h1>
       <p className="text-sm text-muted-foreground">{formatDate(today)}</p>
     </div>
   );

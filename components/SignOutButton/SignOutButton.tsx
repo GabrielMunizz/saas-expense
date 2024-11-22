@@ -12,8 +12,8 @@ const SignOutButton = () => {
   };
   return (
     <Button
-      variant="secondary"
-      className="w-full justify-start pl-8 text-sm font-bold"
+      variant="outline"
+      className="w-full justify-start rounded-full py-6 pl-8 text-sm font-bold text-muted-foreground hover:bg-transparent hover:text-white"
       onClick={handleLogout}
     >
       <SignOut size={22} weight="bold" className="mr-4" />

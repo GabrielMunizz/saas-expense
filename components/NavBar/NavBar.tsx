@@ -1,8 +1,8 @@
 import {
-  CashRegister,
   ChartLineUp,
   CurrencyCircleDollar,
   UserCircle,
+  Wallet,
 } from "@phosphor-icons/react/dist/ssr";
 import NavLink from "./NavLink/NavLink";
 
@@ -15,7 +15,7 @@ export function NavBar() {
           Dashboard
         </NavLink>
         <NavLink route="/transactions">
-          <CashRegister className="mr-4" size={20} weight="bold" />
+          <Wallet className="mr-4" size={20} weight="bold" />
           Transações
         </NavLink>
         <NavLink route="/subscription">

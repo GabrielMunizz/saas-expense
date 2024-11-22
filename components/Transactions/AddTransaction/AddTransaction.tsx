@@ -12,7 +12,7 @@ const AddTransaction = () => {
     <TransactionDrawer setIsOpen={setIsOpen} isOpen={isOpen}>
       <Button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-[230px] rounded-full"
+        className="w-[230px] rounded-full font-semibold"
       >
         Adicionar transação
         <ArrowsDownUp weight="bold" />

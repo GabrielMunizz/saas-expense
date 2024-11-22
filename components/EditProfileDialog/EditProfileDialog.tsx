@@ -103,7 +103,7 @@ const EditProfileDialog = ({
     >
       <DialogClose />
       <DialogTrigger asChild>
-        <Button className="w-[100px]">Editar</Button>
+        <Button className="w-[100px] rounded-full">Editar</Button>
       </DialogTrigger>
       <DialogContent className="w-[400px]">
         <DialogHeader>
