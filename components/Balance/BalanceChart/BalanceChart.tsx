@@ -43,7 +43,7 @@ type BalanceChartProps = {
   balanceData: {
     deposits: number;
     expenses: number;
-    investiments: number;
+    investments: number;
     loans: number;
   };
 };
@@ -57,7 +57,7 @@ const BalanceChart = ({ currentMonth, balanceData }: BalanceChartProps) => {
     },
     {
       category: "Investimentos",
-      amount: balanceData.investiments,
+      amount: balanceData.investments,
       fill: "var(--color-investiments)",
     },
     {

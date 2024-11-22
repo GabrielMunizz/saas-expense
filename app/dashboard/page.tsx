@@ -15,13 +15,13 @@ const Page = async () => {
   const transactions = await getTransactions();
 
   const deposits = calculateBalance(transactions, "DEPOSIT");
-  const investiments = calculateBalance(transactions, "INVESTMENT");
+  const investments = calculateBalance(transactions, "INVESTMENT");
   const expenses = calculateBalance(transactions, "EXPENSE");
   const loans = calculateBalance(transactions, "LOAN");
 
   const balanceData = {
     deposits,
-    investiments,
+    investments,
     expenses,
     loans,
   };
