@@ -1,6 +1,15 @@
+import { authOptions } from "@/backend/authentication/auth";
 import { SubscriptionCard } from "@/components/SubscriptionCard";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-const Subscription = () => {
+const Subscription = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   const data = [
     {
       title: "Plano Básico",
