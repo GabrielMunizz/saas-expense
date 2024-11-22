@@ -26,9 +26,11 @@ const Subscription = () => {
   return (
     <main className="m-8 flex flex-col gap-4">
       <h1 className="text-2xl">Assinatura</h1>
-      {data.map((item, index) => (
-        <SubscriptionCard key={index} data={item} />
-      ))}
+      <div className="flex">
+        {data.map((item, index) => (
+          <SubscriptionCard key={index} data={item} />
+        ))}
+      </div>
     </main>
   );
 };
