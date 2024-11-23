@@ -33,9 +33,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-full rounded-md border">
+    <div className="w-full rounded-md shadow-[3px_3px_8px] shadow-muted-foreground/15">
       <Table>
-        <TableHeader className="bg-muted/50">
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -55,13 +55,14 @@ export function DataTable<TData, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+            table.getRowModel().rows.map((row, i) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className={`border-0 ${i % 2 === 0 ? "bg-[#0d091f]" : ""}`}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="text-center">
+                  <TableCell key={cell.id} className="text-md py-6 text-center">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -69,8 +70,11 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center text-lg font-bold"
+              >
+                Sem transações.
               </TableCell>
             </TableRow>
           )}

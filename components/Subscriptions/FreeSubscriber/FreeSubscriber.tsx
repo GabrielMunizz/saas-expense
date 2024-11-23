@@ -39,7 +39,7 @@ const FreeSubscriber = () => {
         Dê o próximo passo na gestão das suas finanças
       </h2>
       <div className="mt-8 w-[40%]">
-        <h2 className="mb-8 text-center text-xl">
+        <h2 className="mb-4 text-center text-xl">
           Com a assinatura Premium do Nummus, você terá acesso a ferramentas
           exclusivas que tornam o controle financeiro mais prático, eficiente e
           completo.
