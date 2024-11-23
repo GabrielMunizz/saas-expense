@@ -33,14 +33,16 @@ const Subscription = async () => {
     },
   ];
   return (
-    <main className="m-8 flex flex-col gap-4">
-      <h1 className="text-2xl">Assinatura</h1>
+    <div className="flex w-full flex-col items-start px-24 py-6">
+      <div className="mb-6 flex w-full items-center justify-between">
+        <h1 className="text-2xl font-semibold">Assinatura</h1>
+      </div>
       <div className="flex">
         {data.map((item, index) => (
           <SubscriptionCard key={index} data={item} />
         ))}
       </div>
-    </main>
+    </div>
   );
 };
 
