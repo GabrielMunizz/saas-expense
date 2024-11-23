@@ -1,24 +1,16 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 const DashTransactionsHeader = () => {
-  const handleRedirect = () => {
-    redirect("/transactions");
-  };
-
   return (
     <header className="flex w-full items-center justify-between">
-      <h2 className="text-lg font-bold">Transações</h2>
-      <Button
-        variant="outline"
-        className="rounded-full font-bold"
-        onClick={handleRedirect}
+      <h2 className="text-lg font-bold">Últimas transações</h2>
+      <Link
+        href="/transactions"
+        className="rounded-full border-[1px] px-4 py-2 font-bold hover:bg-muted-foreground/10"
       >
         Ver mais
-      </Button>
+      </Link>
     </header>
   );
 };
