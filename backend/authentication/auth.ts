@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async signIn({ user, account, profile }) {
+    async signIn({ account, profile }) {
       try {
         if (account?.provider === "google") {
           const existingAccount = await prisma.account.findFirst({
