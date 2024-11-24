@@ -219,6 +219,11 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@next-auth/prisma-adapter@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-1.0.7.tgz#86195e9cc5a23a9e71370c7e8745b630388143b1"
+  integrity sha512-Cdko4KfcmKjsyHFrWwZ//lfLUbcLqlyFqjd/nYE2m3aZ7tjMNUjpks47iw7NTCnXf+5UWz5Ypyt1dSs1EP5QJw==
+
 "@next/env@14.2.16":
   version "14.2.16"
   resolved "https://registry.npmjs.org/@next/env/-/env-14.2.16.tgz"
@@ -3150,6 +3155,13 @@ react-dom@^18:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
+
+react-google-button@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-google-button/-/react-google-button-0.8.0.tgz#dea1771a764f2240234daf72d96ccd4d90bb13ff"
+  integrity sha512-0u6mbDcTUmWzgXsld8FJpbrXP+zDsNQVYPIt225aBqwgJ/CdrDiep1PZOpnyntyjsejWG0TtQr6uZB4eIaXlJQ==
+  dependencies:
+    prop-types "^15.8.1"
 
 react-hook-form@^7.53.1:
   version "7.53.1"

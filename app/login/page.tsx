@@ -5,7 +5,7 @@ import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/backend/authentication/auth";
 import { redirect } from "next/navigation";
-import GoogleButton from "@/components/GoogleButton/GoogleButton";
+import GoogleButton from "@/components/GoogleBtn/GoogleBtn";
 
 const Login = async () => {
   const session = await getServerSession(authOptions);
@@ -27,7 +27,7 @@ const Login = async () => {
             facilitando o controle do seu orçamento.
           </p>
           <LoginRegisterModal />
-          <p>Ou</p>
+
           <GoogleButton />
         </div>
       </section>

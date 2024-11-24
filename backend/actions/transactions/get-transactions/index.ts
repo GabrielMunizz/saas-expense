@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 export const getTransactions = async () => {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session?.user) {
     throw new Error("Unauthorized");
   }
 
