@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { DefaultSession, getServerSession, NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -65,6 +66,10 @@ export const authOptions: NextAuthOptions = {
         }
         return null;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
 };
