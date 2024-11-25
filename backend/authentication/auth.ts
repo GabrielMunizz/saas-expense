@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async signIn({ account, profile }) {
+    async signIn({ account, profile, user }) {
       try {
         if (account?.provider === "google") {
           const existingAccount = await prisma.account.findFirst({
@@ -57,26 +57,46 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!existingAccount) {
-            const newUser = await prisma.user.create({
-              data: {
-                email: profile?.email as string,
-                name: profile?.name as string,
-                profileImage: profile?.image,
-              },
+            const existingUser = await prisma.user.findFirst({
+              where: { email: user.email as string },
             });
-            await prisma.account.create({
-              data: {
-                provider: account.provider,
-                type: account.type,
-                providerAccountId: account.providerAccountId,
-                access_token: account.access_token,
-                expires_at: account.expires_at,
-                scope: account.scope,
-                token_type: account.token_type,
-                id_token: account.id_token,
-                userId: newUser.id,
-              },
-            });
+
+            if (existingUser) {
+              await prisma.account.create({
+                data: {
+                  provider: account.provider,
+                  type: account.type,
+                  providerAccountId: account.providerAccountId,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  scope: account.scope,
+                  token_type: account.token_type,
+                  id_token: account.id_token,
+                  userId: existingUser.id,
+                },
+              });
+            } else {
+              const newUser = await prisma.user.create({
+                data: {
+                  email: profile?.email as string,
+                  name: profile?.name as string,
+                  profileImage: profile?.image,
+                },
+              });
+              await prisma.account.create({
+                data: {
+                  provider: account.provider,
+                  type: account.type,
+                  providerAccountId: account.providerAccountId,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  scope: account.scope,
+                  token_type: account.token_type,
+                  id_token: account.id_token,
+                  userId: newUser.id,
+                },
+              });
+            }
           }
         }
         return true;
