@@ -53,6 +53,8 @@ const Dashboard = ({ userId }: DashboardProps) => {
       <DashboardHeader
         monthOptions={monthOptions}
         setSelectedMonth={setSelectedMonth}
+        selectedMonth={selectedMonth}
+        transactions={thisMonthTransactions!}
       />
       <section className="grid w-[90%] grid-cols-[2fr_1fr] gap-16">
         <section className="flex flex-col items-center justify-start">
