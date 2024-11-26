@@ -10,7 +10,7 @@ type ByCategoryExpense = {
 export const calculateExpenseByCategory = (transactions: Transaction[]) => {
   const total = calculateBalance(transactions, "EXPENSE");
 
-  const expensesByCategory = transactions.reduce(
+  const expensesByCategory = transactions?.reduce(
     (acc: ByCategoryExpense[], transaction) => {
       if (transaction.type === "EXPENSE") {
         const categoryExists = acc.find(

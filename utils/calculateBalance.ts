@@ -4,10 +4,10 @@ export const calculateBalance = (
   transactions: Transaction[],
   transactionType: TransactionType,
 ): number => {
-  const filteredTransactionsByType = transactions.filter(
+  const filteredTransactionsByType = transactions?.filter(
     (transaction) => transaction.type === transactionType,
   );
-  const transactionsBalacance = filteredTransactionsByType.reduce(
+  const transactionsBalacance = filteredTransactionsByType?.reduce(
     (acc, transaction) => {
       const balance = acc + Number(transaction.amount);
 
@@ -16,5 +16,5 @@ export const calculateBalance = (
     0,
   );
 
-  return Number(transactionsBalacance.toFixed(2));
+  return Number(transactionsBalacance?.toFixed(2));
 };

@@ -6,14 +6,14 @@ import { calculateBalance } from "@/utils/calculateBalance";
 import { Transaction } from "@prisma/client";
 
 type BalanceProps = {
-  transactions: Transaction[];
+  transactions: Transaction[] | undefined;
 };
 
 const Balance = ({ transactions }: BalanceProps) => {
-  const revenue = calculateBalance(transactions, "DEPOSIT");
-  const expenses = calculateBalance(transactions, "EXPENSE");
-  const investments = calculateBalance(transactions, "INVESTMENT");
-  const loans = calculateBalance(transactions, "LOAN");
+  const revenue = calculateBalance(transactions!, "DEPOSIT");
+  const expenses = calculateBalance(transactions!, "EXPENSE");
+  const investments = calculateBalance(transactions!, "INVESTMENT");
+  const loans = calculateBalance(transactions!, "LOAN");
 
   const balance = revenue + loans - expenses - investments;
 

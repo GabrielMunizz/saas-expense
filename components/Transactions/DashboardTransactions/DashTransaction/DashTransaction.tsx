@@ -26,7 +26,7 @@ const DashTransaction = ({ transaction }: DashTransactionProps) => {
         <div className="ml-2">
           <h2 className="text-sm font-bold">{transaction.name}</h2>
           <p className="text-sm text-muted-foreground">
-            {formatDate(transaction.createdAt)}
+            {formatDate(transaction.date)}
           </p>
         </div>
       </div>

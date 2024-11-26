@@ -10,7 +10,7 @@ type ExpensesByCategoryProps = {
 
 const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
   const byExpense = calculateExpenseByCategory(transactions);
-  const gridSelector = byExpense.length > 5 ? "grid-cols-2" : "";
+  const gridSelector = byExpense?.length > 5 ? "grid-cols-2" : "";
 
   return (
     <section className="h-[433px] w-full rounded-lg border-[1px] border-muted px-8 py-6">
@@ -19,8 +19,8 @@ const ExpensesByCategory = ({ transactions }: ExpensesByCategoryProps) => {
       </div>
       <hr className="my-4" />
       <div className={`grid ${gridSelector} gap-x-8`}>
-        {byExpense.length !== 0 ? (
-          byExpense.map((expense) => (
+        {byExpense?.length !== 0 ? (
+          byExpense?.map((expense) => (
             <ByCategoryExpense
               key={expense.category}
               title={CATEGORY_LABELS[expense.category]}
