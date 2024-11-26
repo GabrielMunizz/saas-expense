@@ -10,8 +10,10 @@ type MonthTabsProps = {
 };
 
 const MonthTabs = ({ setFn, months }: MonthTabsProps) => {
+  const currentMonth = new Date().getMonth();
+
   return (
-    <Tabs defaultValue={months[0]} className="w-[80%]">
+    <Tabs defaultValue={months[currentMonth + 1]} className="w-[80%]">
       <TabsList className="bg-transparent">
         {months.map((option) => (
           <TabsTrigger

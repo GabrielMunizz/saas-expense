@@ -27,12 +27,16 @@ const Transactions = ({ userId }: TransactionProps) => {
   const mapedTypes = TRANSACTION_TYPE_OPTIONS.map((option) => option.label);
   const typeOptions = ["Todos", ...mapedTypes];
 
+  const currentMonth = new Date().getMonth();
+
   const monthOptions = ["Todas as transações", ...MONTHS];
-  const [selectedMonth, setSelectedMonth] = useState(monthOptions[0]);
+  const [selectedMonth, setSelectedMonth] = useState(
+    monthOptions[currentMonth + 1],
+  );
   const [selectedType, setSelectedType] = useState(typeOptions[0]);
 
-  const filteredTrans = filterByDate(transactions, selectedMonth);
-  const displayedTransaction = filterByType(filteredTrans, selectedType);
+  const byDateTransactions = filterByDate(transactions, selectedMonth);
+  const displayedTransactions = filterByType(byDateTransactions, selectedType);
 
   return (
     <main className="w-full">
@@ -54,7 +58,7 @@ const Transactions = ({ userId }: TransactionProps) => {
         ) : (
           <DataTable
             columns={transactionColumns}
-            data={displayedTransaction || []}
+            data={displayedTransactions || []}
           />
         )}
       </div>
