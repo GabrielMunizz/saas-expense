@@ -61,42 +61,29 @@ export const authOptions: NextAuthOptions = {
               where: { email: user.email as string },
             });
 
-            if (existingUser) {
-              await prisma.account.create({
-                data: {
-                  provider: account.provider,
-                  type: account.type,
-                  providerAccountId: account.providerAccountId,
-                  access_token: account.access_token,
-                  expires_at: account.expires_at,
-                  scope: account.scope,
-                  token_type: account.token_type,
-                  id_token: account.id_token,
-                  userId: existingUser.id,
-                },
-              });
-            } else {
-              const newUser = await prisma.user.create({
-                data: {
-                  email: profile?.email as string,
-                  name: profile?.name as string,
-                  profileImage: profile?.image,
-                },
-              });
-              await prisma.account.create({
-                data: {
-                  provider: account.provider,
-                  type: account.type,
-                  providerAccountId: account.providerAccountId,
-                  access_token: account.access_token,
-                  expires_at: account.expires_at,
-                  scope: account.scope,
-                  token_type: account.token_type,
-                  id_token: account.id_token,
-                  userId: newUser.id,
-                },
-              });
-            }
+            const newGoogleUser = existingUser
+              ? existingUser
+              : await prisma.user.create({
+                  data: {
+                    email: profile?.email as string,
+                    name: profile?.name as string,
+                    profileImage: profile?.image,
+                  },
+                });
+
+            await prisma.account.create({
+              data: {
+                provider: account.provider,
+                type: account.type,
+                providerAccountId: account.providerAccountId,
+                access_token: account.access_token,
+                expires_at: account.expires_at,
+                scope: account.scope,
+                token_type: account.token_type,
+                id_token: account.id_token,
+                userId: newGoogleUser.id,
+              },
+            });
           }
         }
         return true;
