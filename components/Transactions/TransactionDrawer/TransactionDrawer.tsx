@@ -61,7 +61,7 @@ const formSchema = z.object({
     required_error: "O método de pagamento é obrigatório.",
   }),
   installments: z
-    .string()
+    .union([z.string(), z.number()])
     .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
       message: "O número de parcelas deve ser um número positivo.",
     })

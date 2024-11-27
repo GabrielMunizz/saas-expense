@@ -19,7 +19,7 @@ export const calculateExpenseByCategory = (transactions: Transaction[]) => {
 
         if (categoryExists) {
           categoryExists.amount += Number(transaction.amount);
-          categoryExists.percentage += (categoryExists.amount / total) * 100;
+          categoryExists.percentage = (categoryExists.amount / total) * 100;
         } else {
           acc.push({
             category: transaction.category,

@@ -1,6 +1,6 @@
 import { Transaction } from "@prisma/client";
 import React from "react";
-import TransactionPaymentMethod from "../../TransactionPaymentMethod/TransactionPaymentMethod";
+import TransactionPaymentMethod from "@/components/Transactions/TransactionPaymentMethod/TransactionPaymentMethod";
 import formatDate from "@/utils/formatDate";
 import { formatBalance } from "@/utils/formatBalance";
 import { transactionTypeColor } from "@/utils/transactionTypeColor";
