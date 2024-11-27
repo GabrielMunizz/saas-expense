@@ -20,6 +20,7 @@ model Transaction {
   amount        Decimal             @db.Decimal(10, 2)
   category      TransactionCategory
   paymentMethod PaymentMethod       @map("payment_method")
+  installments  Decimal             @default(1)
   userId        String              @map("user_id")
   date          DateTime
   createdAt     DateTime            @default(now()) @map("created_at")
@@ -28,18 +29,18 @@ model Transaction {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  email        String        @unique
-  emailVerified  DateTime?
-  name         String
-  password     String?
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  transactions Transaction[]
-  nickname     String?       @default("")
-  profileImage String?
-  subscription Plan          @default(FREE)
-  accounts     Account[]
+  id            String        @id @default(uuid())
+  email         String        @unique
+  emailVerified DateTime?
+  name          String
+  password      String?
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  transactions  Transaction[]
+  nickname      String?       @default("")
+  profileImage  String?
+  subscription  Plan          @default(FREE)
+  accounts      Account[]
 }
 
 enum Plan {

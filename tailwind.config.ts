@@ -63,6 +63,27 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({
+      addUtilities,
+    }: {
+      addUtilities: (utilities: Record<string, unknown>) => void;
+    }) {
+      addUtilities({
+        ".no-spin": {
+          "&::-webkit-inner-spin-button": {
+            appearance: "none",
+          },
+          "&::-webkit-outer-spin-button": {
+            appearance: "none",
+          },
+          '&[type="number"]': {
+            "-moz-appearance": "textfield",
+          },
+        },
+      });
+    },
+  ],
 };
 export default config;

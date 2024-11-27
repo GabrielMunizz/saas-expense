@@ -1,11 +1,16 @@
 import { authOptions } from "@/backend/authentication/auth";
 import formatDate from "@/utils/formatDate";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 const Welcome = async () => {
   const session = await getServerSession(authOptions);
   const username = session?.user.name;
   const today = new Date();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
 
   return (
     <div className="text-lx mb-6 mt-16 flex w-full flex-col justify-center">

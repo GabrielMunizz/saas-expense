@@ -11,7 +11,13 @@ import { Input } from "../../ui/input";
 import { MoneyInput } from "../../MoneyInput/MoneyInput";
 import { FormFieldProps } from "../type";
 
-const FormFieldInput = ({ form, name, label, placeHolder }: FormFieldProps) => {
+const FormFieldInput = ({
+  form,
+  name,
+  label,
+  placeHolder,
+  type,
+}: FormFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -29,6 +35,8 @@ const FormFieldInput = ({ form, name, label, placeHolder }: FormFieldProps) => {
                     ? field.value.toISOString().split("T")[0]
                     : field.value
                 }
+                type={type}
+                className={type === "number" ? "no-spin" : ""}
               />
             ) : (
               <MoneyInput

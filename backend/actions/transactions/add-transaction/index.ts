@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { addTransactionSchema } from "./schema";
+import { addMonths } from "date-fns";
 
 type TransactionParams = {
   id?: string;
@@ -19,6 +20,7 @@ type TransactionParams = {
   type: TransactionType;
   category: TransactionCategory;
   paymentMethod: PaymentMethod;
+  installments: number;
   date: Date;
 };
 
@@ -33,19 +35,40 @@ export const addTransaction = async (params: TransactionParams) => {
 
   const userId = session.user.id;
 
-  await prisma.transaction.upsert({
-    where: {
-      id: params.id || "",
-    },
-    update: {
-      ...params,
-      userId,
-    },
-    create: {
-      ...params,
-      userId,
-    },
-  });
+  if (params.installments > 1) {
+    const dataToCreate = [];
+    const installmentAmount = params.amount / params.installments;
+
+    for (let i = 0; i < params.installments; i += 1) {
+      const transactionInstallment: TransactionParams = {
+        ...params,
+        name: `${params.name} (${i + 1}ª parcela)`,
+        amount: installmentAmount,
+        date: addMonths(params.date, i),
+      };
+
+      dataToCreate.push({ ...transactionInstallment, userId });
+    }
+
+    await prisma.transaction.createMany({
+      data: dataToCreate,
+      skipDuplicates: true,
+    });
+  } else {
+    await prisma.transaction.upsert({
+      where: {
+        id: params.id || "",
+      },
+      update: {
+        ...params,
+        userId,
+      },
+      create: {
+        ...params,
+        userId,
+      },
+    });
+  }
 
   revalidatePath("/transactions");
 };

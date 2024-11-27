@@ -35,8 +35,14 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "date",
-    header: "Data do lançamento",
+    header: "Data do vencimento",
     cell: ({ row: { original: transaction } }) => formatDate(transaction.date),
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Data da criação",
+    cell: ({ row: { original: transaction } }) =>
+      formatDate(transaction.createdAt),
   },
   {
     accessorKey: "amount",

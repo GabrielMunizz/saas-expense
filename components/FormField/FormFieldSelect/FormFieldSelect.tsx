@@ -38,7 +38,7 @@ const FormFieldSelect = <T extends string>({
             defaultValue={
               field.value instanceof Date
                 ? field.value.toISOString().split("T")[0]
-                : field.value
+                : field.value.toString()
             }
           >
             <FormControl>

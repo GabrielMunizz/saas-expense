@@ -60,6 +60,12 @@ const formSchema = z.object({
   paymentMethod: z.nativeEnum(PaymentMethod, {
     required_error: "O método de pagamento é obrigatório.",
   }),
+  installments: z
+    .string()
+    .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
+      message: "O número de parcelas deve ser um número positivo.",
+    })
+    .transform((value) => Number(value)),
   date: z.date({
     required_error: "A data é obrigatória.",
   }),
@@ -92,6 +98,7 @@ const TransactionDrawer = ({
           ...transaction,
           amount: transaction?.amount.toString(),
           date: new Date(transaction.date),
+          installments: Number(transaction.installments),
         }
       : {
           name: "",
@@ -99,9 +106,12 @@ const TransactionDrawer = ({
           category: TransactionCategory.ENTERTAINMENT,
           paymentMethod: PaymentMethod.PIX,
           amount: "",
+          installments: 1,
           date: new Date(),
         },
   });
+
+  const selectedPaymentMethod = form.getValues("paymentMethod");
 
   const handleSubmit = async (data: FormSchema) => {
     setIsLoading(true);
@@ -186,6 +196,16 @@ const TransactionDrawer = ({
                 label="Método de pagamento"
                 options={PAYMENT_METHOD_OPTIONS}
               />
+
+              {selectedPaymentMethod === "CREDIT_CARD" && (
+                <FormFieldInput
+                  name="installments"
+                  placeHolder="Escolha a quantidade de parcelas"
+                  form={form}
+                  label="Parcelas"
+                  type="number"
+                />
+              )}
 
               <FormField
                 control={form.control}
