@@ -1,8 +1,10 @@
+import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { getUser } from "@/backend/actions/user/get-user";
 
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import ProfileImage from "@/components/ProfileImage/ProfileImage";
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
+import { Progress } from "@/components/ui/progress";
 
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import { Plan } from "@prisma/client";
@@ -11,6 +13,9 @@ import Link from "next/link";
 const Profile = async () => {
   const { name, email, createdAt, nickname, subscription, profileImage } =
     await getUser();
+
+  const transactions = await getTransactions();
+  const percentage = (transactions.length / 50) * 100;
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -48,8 +53,16 @@ const Profile = async () => {
             email={email}
             createdAt={createdAt}
             subscription={subscription}
+            transactionPercentage={percentage}
           />
-          <footer className="my-8 flex h-[5rem] w-[90%] items-center justify-end border-t-[1px] px-8">
+          <footer className="my-8 flex w-[90%] items-end justify-between border-t-[1px] p-8">
+            <div className="w-[50%]">
+              <div className="mb-2 flex items-center justify-between">
+                <h2 className="font-semibold">Transações</h2>
+                <h2 className="font-semibold">{transactions.length}/50</h2>
+              </div>
+              <Progress className="text-muted" value={percentage} />
+            </div>
             <div className="flex items-center justify-center">
               <h2>Não quer limite de transações?</h2>
               <Link

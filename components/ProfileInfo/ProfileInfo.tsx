@@ -9,6 +9,7 @@ type ProfileInfoProps = {
   createdAt: Date;
   email: string;
   subscription: $Enums.Plan;
+  transactionPercentage: number;
 };
 
 const ProfileInfo = ({
