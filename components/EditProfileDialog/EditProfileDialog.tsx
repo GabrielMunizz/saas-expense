@@ -134,7 +134,7 @@ const EditProfileDialog = ({
               placeholder="Digite seu apelido"
             />
 
-            <Label className="mt-4 flex cursor-pointer items-center justify-center rounded-md border-2 border-muted-foreground py-4 text-center">
+            <Label className="mt-4 flex cursor-pointer items-center justify-center rounded-full border-2 border-muted-foreground py-4 text-center">
               {fileName === "Escolha uma foto de perfil" && (
                 <PlusCircle
                   size={18}
@@ -154,7 +154,7 @@ const EditProfileDialog = ({
             <CustomButton
               isLoading={isLoading}
               type="submit"
-              className="mt-8 h-full py-3 font-bold"
+              className="mt-8 h-full rounded-full py-3 font-bold"
             >
               Confirmar
             </CustomButton>

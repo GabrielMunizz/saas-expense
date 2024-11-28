@@ -1,10 +1,12 @@
 import { getUser } from "@/backend/actions/user/get-user";
+
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
 import ProfileImage from "@/components/ProfileImage/ProfileImage";
-import TextInput from "@/components/TextInput/TextInput";
-import formatDate from "@/utils/formatDate";
+import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
+
 import { CrownSimple } from "@phosphor-icons/react/dist/ssr/CrownSimple";
 import { Plan } from "@prisma/client";
+import Link from "next/link";
 
 const Profile = async () => {
   const { name, email, createdAt, nickname, subscription, profileImage } =
@@ -12,59 +14,52 @@ const Profile = async () => {
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
-      <section className="flex w-[45rem] flex-col items-center justify-center rounded-md">
+      <section className="flex w-[60%] flex-col items-center justify-center rounded-md">
         <div className="h-[6rem] w-full rounded-t-md bg-gradient-to-r from-purple-800/15 via-purple-900/80 to-purple-800/15" />
-        <section className="flex w-full flex-col items-center justify-start rounded-b-md bg-[#0d091f]">
-          <section className="flex w-[95%] items-center justify-between">
-            <div className="m-4">
-              <ProfileImage profileImage={profileImage} />
-            </div>
-            <div className="flex w-full items-center justify-between">
-              <div>
-                <div className="flex items-center justify-start">
-                  <h2 className="mb-[4px] mr-2 text-2xl font-bold">{name}</h2>
-                  {subscription === Plan.PREMIUM && (
-                    <CrownSimple color="orange" weight="fill" size={18} />
-                  )}
+        <section className="flex w-full flex-col items-center justify-center rounded-b-md bg-[#0d091f] px-16">
+          <section className="flex w-[95%] items-center justify-center">
+            <div className="my-8 flex w-[90%] items-center justify-center">
+              <div className="m-4">
+                <ProfileImage profileImage={profileImage} />
+              </div>
+              <div className="flex w-full items-center justify-between">
+                <div>
+                  <div className="flex items-center justify-start">
+                    <h2 className="mb-[4px] mr-2 text-2xl font-bold">{name}</h2>
+                    {subscription === Plan.PREMIUM && (
+                      <CrownSimple color="orange" weight="fill" size={18} />
+                    )}
+                  </div>
+                  <h2 className="text-lg text-muted-foreground">{email}</h2>
                 </div>
-                <h2 className="text-lg text-muted-foreground">{email}</h2>
-              </div>
-              <div className="mr-8">
-                <EditProfileDialog
-                  name={name}
-                  nickname={nickname}
-                  email={email}
-                />
+                <div className="mr-4">
+                  <EditProfileDialog
+                    name={name}
+                    nickname={nickname}
+                    email={email}
+                  />
+                </div>
               </div>
             </div>
           </section>
-          <section className="grid w-[95%] grid-cols-2 place-content-between px-6 pb-4">
-            <div>
-              <TextInput defaultValue={name} readonly label="Nome completo:" />
-              <TextInput defaultValue={email} readonly label="E-mail:" />
-              <TextInput
-                readonly
-                defaultValue={nickname ?? ""}
-                label="Nickname:"
-              />
+          <ProfileInfo
+            name={name}
+            nickname={nickname}
+            email={email}
+            createdAt={createdAt}
+            subscription={subscription}
+          />
+          <footer className="my-8 flex h-[5rem] w-[90%] items-center justify-end border-t-[1px] px-8">
+            <div className="flex items-center justify-center">
+              <h2>Não quer limite de transações?</h2>
+              <Link
+                href="/subscription"
+                className="ml-4 font-semibold text-emerald-600 hover:text-emerald-700"
+              >
+                Fazer upgrade!
+              </Link>
             </div>
-            <div className="ml-16">
-              <TextInput
-                label="Plano:"
-                defaultValue={
-                  subscription === Plan.PREMIUM ? "Premium" : "Free"
-                }
-                readonly
-                className="w-[250px] border-0 outline-none focus-visible:ring-0"
-              />
-              <TextInput
-                label="Membro desde:"
-                defaultValue={formatDate(createdAt)}
-                readonly
-                className="w-[250px] border-0 outline-none focus-visible:ring-0"
-              />
-            </div>
-          </section>
+          </footer>
         </section>
       </section>
     </main>
