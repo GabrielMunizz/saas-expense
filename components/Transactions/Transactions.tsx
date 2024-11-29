@@ -40,7 +40,7 @@ const Transactions = ({ userId }: TransactionProps) => {
 
   return (
     <main className="w-full">
-      <div className="flex w-full items-center justify-between">
+      <div className="mb-4 flex w-full items-center justify-between">
         <MonthTabs setFn={setSelectedMonth} months={monthOptions} />
         <div className="flex items-center justify-start">
           <h2 className="mr-2 text-muted-foreground">Filtrar por tipo:</h2>
