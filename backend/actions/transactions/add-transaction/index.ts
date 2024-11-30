@@ -54,6 +54,11 @@ export const addTransaction = async (params: TransactionParams) => {
       data: dataToCreate,
       skipDuplicates: true,
     });
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { transactionCounter: { increment: dataToCreate.length } },
+    });
   } else {
     await prisma.transaction.upsert({
       where: {
@@ -67,6 +72,11 @@ export const addTransaction = async (params: TransactionParams) => {
         ...params,
         userId,
       },
+    });
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { transactionCounter: { increment: 1 } },
     });
   }
 

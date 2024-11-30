@@ -29,18 +29,19 @@ model Transaction {
 }
 
 model User {
-  id            String        @id @default(uuid())
-  email         String        @unique
-  emailVerified DateTime?
-  name          String
-  password      String?
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
-  transactions  Transaction[]
-  nickname      String?       @default("")
-  profileImage  String?
-  subscription  Plan          @default(FREE)
-  accounts      Account[]
+  id                 String        @id @default(uuid())
+  email              String        @unique
+  emailVerified      DateTime?
+  name               String
+  password           String?
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+  transactions       Transaction[]
+  transactionCounter Int           @default(0)
+  nickname           String?       @default("")
+  profileImage       String?
+  subscription       Plan          @default(FREE)
+  accounts           Account[]
 }
 
 enum Plan {

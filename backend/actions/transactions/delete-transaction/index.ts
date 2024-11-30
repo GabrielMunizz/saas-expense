@@ -22,6 +22,11 @@ const deleteTransaction = async (id: string) => {
     where: { id },
   });
 
+  await prisma.user.update({
+    where: { id: userId },
+    data: { transactionCounter: { decrement: 1 } },
+  });
+
   revalidatePath("/transactions");
 };
 
