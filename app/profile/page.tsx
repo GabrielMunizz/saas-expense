@@ -1,4 +1,3 @@
-import { getTransactions } from "@/backend/actions/transactions/get-transactions";
 import { getUser } from "@/backend/actions/user/get-user";
 
 import EditProfileDialog from "@/components/EditProfileDialog/EditProfileDialog";
@@ -11,11 +10,17 @@ import { Plan } from "@prisma/client";
 import Link from "next/link";
 
 const Profile = async () => {
-  const { name, email, createdAt, nickname, subscription, profileImage } =
-    await getUser();
+  const {
+    name,
+    email,
+    createdAt,
+    nickname,
+    subscription,
+    profileImage,
+    transactionCounter,
+  } = await getUser();
 
-  const transactions = await getTransactions();
-  const percentage = (transactions.length / 50) * 100;
+  const percentage = (transactionCounter / 50) * 100;
 
   return (
     <main className="flex h-full w-full flex-col items-center justify-start py-10">
@@ -59,7 +64,7 @@ const Profile = async () => {
             <div className="w-[50%]">
               <div className="mb-2 flex items-center justify-between">
                 <h2 className="font-semibold">Transações</h2>
-                <h2 className="font-semibold">{transactions.length}/50</h2>
+                <h2 className="font-semibold">{transactionCounter}/50</h2>
               </div>
               <Progress className="text-muted" value={percentage} />
             </div>
