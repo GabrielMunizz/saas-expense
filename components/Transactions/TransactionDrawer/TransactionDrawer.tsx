@@ -43,6 +43,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import ExceededModal from "../ExceededModal/ExceededModal";
 
 const formSchema = z.object({
   name: z.string().trim().min(3, {
@@ -90,6 +91,7 @@ const TransactionDrawer = ({
 }: TransactionDrawerProps) => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
+  const [isExceeded, setIsExceeded] = useState(false);
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -128,8 +130,14 @@ const TransactionDrawer = ({
       );
       setIsOpen(false);
       form.reset();
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error(error);
+      if (error.message === "Limite de transações excedido") {
+        setIsExceeded(true);
+        setIsOpen(false);
+        form.reset();
+      }
       toast.error("Oops! Um erro ocorreu. Tente novamente!");
     } finally {
       setIsLoading(false);
@@ -146,6 +154,11 @@ const TransactionDrawer = ({
       open={isOpen}
     >
       <DrawerTrigger asChild>{children}</DrawerTrigger>
+
+      {isExceeded && (
+        <ExceededModal isExceeded={isExceeded} setIsExceeded={setIsExceeded} />
+      )}
+
       <DrawerContent>
         <div className="mx-auto h-full w-[60%] max-w-sm py-10">
           <DrawerHeader className="px-0">

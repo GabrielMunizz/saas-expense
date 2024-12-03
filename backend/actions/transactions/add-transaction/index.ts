@@ -12,6 +12,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { addTransactionSchema } from "./schema";
 import { addMonths } from "date-fns";
+import { getUser } from "../../user/get-user";
 
 type TransactionParams = {
   id?: string;
@@ -28,9 +29,14 @@ export const addTransaction = async (params: TransactionParams) => {
   addTransactionSchema.parse(params);
 
   const session = await getServerSession(authOptions);
+  const { subscription, transactionCounter } = await getUser();
 
   if (!session?.user) {
     redirect("/api/sign-out");
+  }
+
+  if (subscription === "FREE" && transactionCounter >= 50) {
+    throw new Error("Limite de transações excedido");
   }
 
   const userId = session.user.id;
