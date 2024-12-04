@@ -20,6 +20,7 @@ const NavLink = ({ children, route }: NavLinkProps) => {
         },
       )}
       href={route}
+      prefetch={true}
     >
       {children}
     </Link>
